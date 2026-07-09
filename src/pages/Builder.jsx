@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PersonalInfoForm from "../components/ResumeForm/PersonalInfoForm";
 
 function Builder() {
   const [activeTab, setActiveTab] = useState("edit"); // "edit" | "preview"
@@ -41,7 +42,7 @@ function Builder() {
             activeTab === "edit" ? "block" : "hidden"
           } md:block flex-1 p-6`}
         >
-          <h2 className="font-display text-2xl mb-4">Form goes here</h2>
+            <PersonalInfoForm/>
         </div>
 
         {/* Preview Section */}

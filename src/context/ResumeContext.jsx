@@ -6,6 +6,7 @@ const initialResumeData = {
     profilePhoto: null,
     jobTitle: "",
     email: "",
+    countryCode: "92", //Default to Pakistan
     phone: "",
     address: "",
     linkedin: "",
