@@ -3,16 +3,22 @@ import { useTheme } from "../context/ThemeContext";
 function ThemeToggle() {
   const { isDark, toggleTheme } = useTheme();
 
-  return (
+   return (
     <button
       onClick={toggleTheme}
-      className="px-3 py-1 rounded-full border dark:border-gray-600 border-gray-300"
+      aria-label="Toggle dark mode"
+      aria-pressed={isDark}
+      className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 ${
+        isDark ? "bg-[#F4B942]" : "bg-[#1C2541]/15"
+      }`}
     >
-      {/* TODO: show "🌙" when NOT dark (meaning: click to go dark), 
-          show "☀️" when dark (meaning: click to go light) 
-          hint: this is just a ternary on isDark, same as your className patterns */}
-
-          {isDark? "☀️" : "🌙" }
+      <span
+        className={`flex h-6 w-6 items-center justify-center rounded-full bg-[#FAF8F3] shadow-md transform transition-transform duration-300 text-xs ${
+          isDark ? "translate-x-7" : "translate-x-1"
+        }`}
+      >
+        {isDark ? "🌙" : "☀️"}
+      </span>
     </button>
   );
 }
