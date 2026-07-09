@@ -17,6 +17,17 @@ function PersonalInfoForm() {
     dispatch({ type: "UPDATE_PERSONAL_INFO", payload: formik.values });
   }, [formik.values]);
 
+  function handlePhotoUpload(e) {
+  const file = e.target.files[0]; // the selected File object, or undefined if cancelled
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    formik.setFieldValue("profilePhoto", reader.result);
+  };
+  reader.readAsDataURL(file); // kicks off the async read; onload fires when done
+}
+
   return (
     <form className="space-y-4">
       {/* Full Name */}
@@ -167,6 +178,21 @@ function PersonalInfoForm() {
           </span>
         </div>
       </div>
+
+      {/* Profile Photo */}
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Profile Photo
+          </label>
+          <input type="file" accept="image/*" onChange={handlePhotoUpload} />
+          {formik.values.profilePhoto && (
+            <img
+              src={formik.values.profilePhoto}
+              alt="Profile preview"
+              className="mt-2 w-40 h-40 rounded-full object-cover"
+            />
+          )}
+        </div>
     </form>
   );
 }
