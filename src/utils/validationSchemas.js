@@ -16,7 +16,5 @@ export const personalInfoSchema = Yup.object({
   github: Yup.string().url("Enter a valid URL"),
   portfolio: Yup.string().url("Enter a valid URL"),
 
-  // TODO: summary — optional, but cap it so it doesn't blow out the resume
-  // layout later. Yup string has a .max(number, message) method.
   summary: Yup.string().max(500, "Summary cannot exceed 500 characters")
 });
