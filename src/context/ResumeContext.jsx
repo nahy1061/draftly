@@ -49,11 +49,21 @@ function resumeReducer(state, action) {
           action.payload.item,
         ],
       };
+    case "UPDATE_ITEM":
+      // action.payload = { section: "education", id: "abc-123", item: {...updatedFields} }
+      return {
+        ...state,
+        [action.payload.section]: state[action.payload.section].map((el) =>
+          el.id === action.payload.id ? action.payload.item : el
+        ),
+      };
 
     case "REMOVE_ITEM":
       return {
         ...state,
-        [action.payload.section]: state[action.payload.section].filter((el) => el.id !== action.payload.id),
+        [action.payload.section]: state[action.payload.section].filter(
+          (el) => el.id !== action.payload.id,
+        ),
       };
     case "SET_TEMPLATE":
       return { ...state, selectedTemplate: action.payload };

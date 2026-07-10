@@ -31,6 +31,9 @@ function PersonalInfoForm() {
 
   return (
     <form className="space-y-4">
+      <h2 className="font-display text-2xl font-semibold mb-4">
+        Personal Information
+      </h2>
       <FormInput formik={formik} name="fullName" label="Full Name" />
       <FormInput formik={formik} name="email" label="Email" type="email" />
       <FormInput formik={formik} name="jobTitle" label="Job Title" />
@@ -63,7 +66,12 @@ function PersonalInfoForm() {
 
       {/* Summary */}
       <div>
+        <div className="flex gap-2">
         <label className="block text-sm font-medium mb-1">Summary</label>
+        <span className="text-xs text-[#1C2541]/40 dark:text-[#F2EFE9]/40 self-center">
+          (Optional)
+        </span>
+        </div>
         <textarea
           name="summary"
           value={formik.values.summary}

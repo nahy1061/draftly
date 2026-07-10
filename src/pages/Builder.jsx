@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ThemeToggle from "../components/ThemeToggle";
 import PersonalInfoForm from "../components/ResumeForm/PersonalInfoForm";
 import ResumePreview from "../components/ResumePreview/ResumePreview";
+import EducationForm from "../components/ResumeForm/EducationForm";
 
 function Builder() {
   const [activeTab, setActiveTab] = useState("edit"); // "edit" | "preview"
@@ -53,6 +54,7 @@ function Builder() {
             Editor
           </h2>
           <PersonalInfoForm />
+          <EducationForm />
         </div>
 
         {/* Preview Section */}
