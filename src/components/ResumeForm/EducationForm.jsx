@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { educationSchema } from "../../utils/validationSchemas";
 import FormInput from "./FormInput";
 import { useResume } from "../../context/ResumeContext";
-import { generateId } from "../../utils/generateId";
+import { generateID } from "../../utils/generateID";
 
 const emptyEducation = {
   degree: "",
@@ -19,20 +19,20 @@ const emptyEducation = {
 
 function EducationForm() {
   const { resumeData, dispatch } = useResume();
-  const [editingId, setEditingId] = useState(null);
+  const [editingID, setEditingID] = useState(null);
 
   const formik = useFormik({
     initialValues: emptyEducation,
     validationSchema: educationSchema,
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
-      if (editingId) {
+      if (editingID) {
         dispatch({
           type: "UPDATE_ITEM",
           payload: {
             section: "education",
-            id: editingId,
-            item: { ...values, id: editingId },
+            id: editingID,
+            item: { ...values, id: editingID },
           },
         });
       } else {
@@ -40,22 +40,22 @@ function EducationForm() {
           type: "ADD_ITEM",
           payload: {
             section: "education",
-            item: { ...values, id: generateId() },
+            item: { ...values, id: generateID() },
           },
         });
       }
       resetForm();
-      setEditingId(null);
+      setEditingID(null);
     },
   });
 
   function handleEdit(entry) {
-    setEditingId(entry.id);
+    setEditingID(entry.id);
     formik.setValues(entry);
   }
 
   function handleCancelEdit() {
-    setEditingId(null);
+    setEditingID(null);
     formik.resetForm();
   }
 
@@ -152,9 +152,9 @@ function EducationForm() {
             type="submit"
             className="bg-[#1C2541] dark:bg-[#F4B942] text-[#FAF8F3] dark:text-[#1C2541] px-5 py-2 rounded-full font-medium"
           >
-            {editingId ? "Update" : "Add"} Education
+            {editingID ? "Update" : "Add"} Education
           </button>
-          {editingId && (
+          {editingID && (
             <button
               type="button"
               onClick={handleCancelEdit}
@@ -180,6 +180,8 @@ function EducationForm() {
                   {entry.institute} · {entry.startYear}–{entry.endYear}
                 </p>
               </div>
+
+              {/* edit/delete buttons  */}
               <div className="flex gap-2">
                 <button
                   type="button"

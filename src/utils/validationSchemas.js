@@ -90,3 +90,33 @@ export const educationSchema = Yup.object({
       otherwise: (schema) => schema.notRequired(),
     }),
 });
+
+export const experienceSchema = Yup.object({
+  company: Yup.string().required("Company name is required"),
+  position: Yup.string().required("Position is required"),
+
+  startDate: Yup.string().required("Start date is required"),
+
+  current: Yup.boolean(),
+
+  endDate: Yup.string().when("current", {
+    is: true, /* ___ (1): what value of `current` means "still working here"? ___ */
+    then: (schema) => schema.notRequired(),
+    otherwise: (schema) =>
+      schema
+        .required("End date is required")
+        .test(
+          "end-after-start",                        //test name
+          "End date cannot be before start date",    // error msg
+          function (value) {
+            /* ___ (2): mirror the pattern from endYear in educationSchema — 
+               compare against this.parent.startDate ___ */
+                return !value || !this.parent.startDate || value >= this.parent.startDate;
+          }
+        ),
+  }),
+
+  /* ___ (3): required string, and think about whether 
+     a .min() character count makes sense for a "describe your role" field ___ */
+     responsibilities: Yup.string().min(20, "Please describe your responsibilities in at least 20 characters").required("Responsibilities are required"),
+});
