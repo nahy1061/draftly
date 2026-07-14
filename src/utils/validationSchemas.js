@@ -123,3 +123,10 @@ export const projectSchema = Yup.object({
   githubLink: Yup.string().url("Enter a valid URL"),
   liveDemoLink: Yup.string().url("Enter a valid URL"),
 });
+
+export const certificationSchema = Yup.object({
+  name: Yup.string().required("Certification name is required"),
+  issuer: Yup.string().required("Issuing organization is required"),
+  date: Yup.string().required("Date is required"),
+  credentialUrl: Yup.string().url("Enter a valid URL"),
+});

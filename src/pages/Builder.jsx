@@ -6,6 +6,7 @@ import ResumePreview from "../components/ResumePreview/ResumePreview";
 import EducationForm from "../components/ResumeForm/EducationForm";
 import ExperienceForm from "../components/ResumeForm/ExperienceForm";
 import ProjectsForm from "../components/ResumeForm/ProjectsForm";
+import CertificationsForm from "../components/ResumeForm/CertificationsForm";
 
 function Builder() {
   const [activeTab, setActiveTab] = useState("edit"); // "edit" | "preview"
@@ -59,6 +60,7 @@ function Builder() {
           <EducationForm />
           <ExperienceForm />
           <ProjectsForm />
+          <CertificationsForm />
         </div>
 
         {/* Preview Section */}
