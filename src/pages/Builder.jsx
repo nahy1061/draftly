@@ -8,6 +8,8 @@ import ExperienceForm from "../components/ResumeForm/ExperienceForm";
 import ProjectsForm from "../components/ResumeForm/ProjectsForm";
 import CertificationsForm from "../components/ResumeForm/CertificationsForm";
 import LanguagesForm from "../components/ResumeForm/LanguagesForm";
+import SkillsForm from "../components/ResumeForm/SkillsForm";
+import InterestsForm from "../components/ResumeForm/InterestsForm";
 
 function Builder() {
   const [activeTab, setActiveTab] = useState("edit"); // "edit" | "preview"
@@ -63,6 +65,8 @@ function Builder() {
           <ProjectsForm />
           <CertificationsForm />
           <LanguagesForm />
+          <SkillsForm />
+          <InterestsForm />
         </div>
 
         {/* Preview Section */}
