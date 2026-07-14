@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { PROFICIENCY_LEVELS } from "./constants";
 
 const phoneRegExp = /^[1-9]\d{8,10}$/;
 const currentYear = new Date().getFullYear();
@@ -129,4 +130,13 @@ export const certificationSchema = Yup.object({
   issuer: Yup.string().required("Issuing organization is required"),
   date: Yup.string().required("Date is required"),
   credentialUrl: Yup.string().url("Enter a valid URL"),
+});
+
+
+
+export const languageSchema = Yup.object({
+  name: Yup.string().required("Language name is required"),
+  proficiency: Yup.string()
+    .oneOf(PROFICIENCY_LEVELS)
+    .required("Proficiency is required"),
 });
