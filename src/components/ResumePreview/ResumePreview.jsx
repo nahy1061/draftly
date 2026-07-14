@@ -2,6 +2,7 @@ import { useResume } from "../../context/ResumeContext";
 import CertificationsPreview from "./CertificationsPreview";
 import EducationPreview from "./EducationPreview";
 import ExperiencePreview from "./ExperiencePreview";
+import LanguagesPreview from "./LanguagesPreview";
 import PersonalInfoPreview from "./PersonalInfoPreview";
 import ProjectsPreview from "./ProjectsPreview";
 
@@ -15,6 +16,7 @@ function ResumePreview() {
       <ExperiencePreview experience={resumeData.experience} />
       <ProjectsPreview projects={resumeData.projects} />
       <CertificationsPreview certifications={resumeData.certifications} />
+      <LanguagesPreview languages={resumeData.languages} />
     </div>
   );
 }
