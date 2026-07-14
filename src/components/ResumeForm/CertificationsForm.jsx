@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useFormik } from "formik";
-import { certificationSchema } from "../../utils/validationSchemas";
-import FormInput from "./FormInput";
-import { useResume } from "../../context/ResumeContext";
-import { generateID } from "../../utils/generateID";
 import { formatMonthYear } from "../../utils/formatDate";
+import { generateID } from "../../utils/generateID";
+import { useResume } from "../../context/ResumeContext";
+import FormInput from "./FormInput";
+import { certificationSchema } from "../../utils/validationSchemas";
 
 const emptyCertification = {
   name: "",
