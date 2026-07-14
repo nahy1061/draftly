@@ -76,6 +76,7 @@ function ExperienceForm() {
     });
 
     if (checked) {
+         //  setFieldTouched(field, isTouched, shouldValidate)
       formik.setFieldTouched("endDate", false, false); // 3rd arg: don't re-validate on this call
     }
   }
