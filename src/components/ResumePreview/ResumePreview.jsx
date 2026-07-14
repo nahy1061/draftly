@@ -2,9 +2,11 @@ import { useResume } from "../../context/ResumeContext";
 import CertificationsPreview from "./CertificationsPreview";
 import EducationPreview from "./EducationPreview";
 import ExperiencePreview from "./ExperiencePreview";
+import InterestsPreview from "./InterestsPreview";
 import LanguagesPreview from "./LanguagesPreview";
 import PersonalInfoPreview from "./PersonalInfoPreview";
 import ProjectsPreview from "./ProjectsPreview";
+import SkillsPreview from "./SkillsPreview";
 
 function ResumePreview() {
   const { resumeData } = useResume();
@@ -17,6 +19,8 @@ function ResumePreview() {
       <ProjectsPreview projects={resumeData.projects} />
       <CertificationsPreview certifications={resumeData.certifications} />
       <LanguagesPreview languages={resumeData.languages} />
+      <SkillsPreview skills={resumeData.skills} />
+      <InterestsPreview interests={resumeData.interests} />
     </div>
   );
 }
