@@ -5,6 +5,7 @@ import FormInput from "./FormInput";
 import { useResume } from "../../context/ResumeContext";
 import { generateID } from "../../utils/generateID";
 import { formatMonthYear } from "../../utils/formatDate";
+import { calculateDuration } from "../../utils/calculateDuration";
 
 const emptyExperience = {
   company: "",
@@ -66,9 +67,16 @@ function ExperienceForm() {
   }
 
   function handleCurrentChange(e) {
-    formik.handleChange(e); // let formik update `current` normally
-    if (e.target.checked) {
-      formik.setFieldValue("endDate", "");
+    const checked = e.target.checked;
+
+    formik.setValues({
+      ...formik.values,
+      current: checked,
+      endDate: checked ? "" : formik.values.endDate,
+    });
+
+    if (checked) {
+      formik.setFieldTouched("endDate", false, false); // 3rd arg: don't re-validate on this call
     }
   }
 
@@ -159,7 +167,6 @@ function ExperienceForm() {
       </form>
 
       {/* Entry Preview with Edit/Delete Btn  */}
-      {/* Entry Preview with Edit/Delete Btn  */}
       <ul className="space-y-3 mt-6">
         {resumeData.experience &&
           resumeData.experience.map((entry) => (
@@ -179,6 +186,11 @@ function ExperienceForm() {
                 <p className="text-sm text-[#3C6E71] dark:text-[#7FA8A3]">
                   {entry.company} · {formatMonthYear(entry.startDate)} –{" "}
                   {entry.current ? "Present" : formatMonthYear(entry.endDate)}
+                  {" · "}
+                  {calculateDuration(
+                    entry.startDate,
+                    entry.current ? "" : entry.endDate,
+                  )}
                 </p>
                 <p className="text-sm text-[#1C2541]/60 dark:text-[#F2EFE9]/60 mt-1">
                   {entry.responsibilities}
