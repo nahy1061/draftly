@@ -19,9 +19,17 @@ const ExperiencePreview = ({ experience }) => {
                     {entry.current ? "Present" : formatMonthYear(entry.endDate)}
                   </p>
                 </div>
-                <p className="text-sm text-[#3C6E71] dark:text-[#7FA8A3]">
-                  {entry.company}
-                </p>
+                <div className="flex justify-between items-baseline">
+                  <p className="text-sm text-[#3C6E71] dark:text-[#7FA8A3]">
+                    {entry.company}
+                  </p>
+                  <p className="text-xs font-mono-draft uppercase tracking-wide text-[#1C2541]/40 dark:text-[#F2EFE9]/40">
+                    {calculateDuration(
+                      entry.startDate,
+                      entry.current ? "" : entry.endDate,
+                    )}
+                  </p>
+                </div>
                 {entry.responsibilities && (
                   <p className="text-xs text-[#1C2541]/60 dark:text-[#F2EFE9]/60 mt-1">
                     {entry.responsibilities}
