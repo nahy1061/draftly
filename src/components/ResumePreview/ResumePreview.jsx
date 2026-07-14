@@ -2,6 +2,7 @@ import { useResume } from "../../context/ResumeContext";
 import EducationPreview from "./EducationPreview";
 import ExperiencePreview from "./ExperiencePreview";
 import PersonalInfoPreview from "./PersonalInfoPreview";
+import ProjectsPreview from "./ProjectsPreview";
 
 function ResumePreview() {
   const { resumeData } = useResume();
@@ -11,6 +12,7 @@ function ResumePreview() {
       <PersonalInfoPreview personalInfo={resumeData.personalInfo} />
       <EducationPreview education={resumeData.education} />
       <ExperiencePreview experience={resumeData.experience} />
+      <ProjectsPreview projects={resumeData.projects} />
     </div>
   );
 }
