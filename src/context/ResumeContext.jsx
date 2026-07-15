@@ -30,6 +30,8 @@ const initialResumeData = {
     "languages",
     "interests",
   ],
+  skippedSections: [], // array of skipped section keys
+  hasSeenSectionPicker: false, // has the full-screen picker been shown yet
   selectedTemplate: "modern",
 };
 
@@ -54,7 +56,7 @@ function resumeReducer(state, action) {
       return {
         ...state,
         [action.payload.section]: state[action.payload.section].map((el) =>
-          el.id === action.payload.id ? action.payload.item : el
+          el.id === action.payload.id ? action.payload.item : el,
         ),
       };
 
@@ -70,6 +72,18 @@ function resumeReducer(state, action) {
 
     case "REORDER_SECTIONS":
       return { ...state, sectionOrder: action.payload };
+
+    case "TOGGLE_SECTION_SKIP":
+      // action.payload = "languages" — the section key to toggle
+      return {
+        ...state,
+        skippedSections: state.skippedSections.includes(action.payload)
+          ? state.skippedSections.filter((key) => key !== action.payload) // already skipped -> un-skip
+          : [...state.skippedSections, action.payload], // not skipped -> skip it
+      };
+
+    case "MARK_PICKER_SEEN":
+      return { ...state, hasSeenSectionPicker: true };
 
     default:
       return state;
