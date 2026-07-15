@@ -102,6 +102,21 @@ function Builder() {
     return <SectionPicker mode="fullscreen" onSelect={handlePickSection} />;
   }
 
+  // Called by SectionPicker right before it skips a section, but only when that section is the one currently open.
+  // Moves activeSection away so the user isn't left staring at a form for a section that just became skipped.
+  function handleActiveSectionSkip(key) {
+    const next = getNextIndex(navOrder.indexOf(key));
+    const prev = getPrevIndex(navOrder.indexOf(key));
+
+    if (next !== -1) {
+      setActiveSection(navOrder[next]);
+    } else if (prev !== -1) {
+      setActiveSection(navOrder[prev]);
+    }
+    // If neither exists, do nothing — can't happen in practice since
+    // Personal Info always exists and is never skippable.
+  }
+
   return (
     <div className="min-h-screen bg-[#FAF8F3] dark:bg-[#1C2541] text-[#1C2541] dark:text-[#F2EFE9]">
       {/* Top header */}
@@ -233,6 +248,8 @@ function Builder() {
           mode="modal"
           onSelect={handlePickSection}
           onClose={() => setShowPicker(false)}
+          activeSection={activeSection}
+          onActiveSectionSkip={handleActiveSectionSkip}
         />
       )}
     </div>
