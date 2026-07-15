@@ -10,9 +10,44 @@ import CertificationsForm from "../components/ResumeForm/CertificationsForm";
 import LanguagesForm from "../components/ResumeForm/LanguagesForm";
 import SkillsForm from "../components/ResumeForm/SkillsForm";
 import InterestsForm from "../components/ResumeForm/InterestsForm";
+import { useResume } from "../context/ResumeContext";
+import { SECTION_LABELS } from "../utils/constants";
+
+// Maps a section key -> the actual form component to render for it.
+// Lives outside the component so it isn't recreated every render.
+const SECTION_COMPONENTS = {
+  personalInfo: PersonalInfoForm,
+  education: EducationForm,
+  experience: ExperienceForm,
+  projects: ProjectsForm,
+  certifications: CertificationsForm,
+  languages: LanguagesForm,
+  skills: SkillsForm,
+  interests: InterestsForm,
+};
 
 function Builder() {
   const [activeTab, setActiveTab] = useState("edit"); // "edit" | "preview"
+  const { resumeData } = useResume();
+
+  const navOrder = ["personalInfo", ...resumeData.sectionOrder];
+
+  // Which of the 7 cycling sections is currently shown, Starts at whatever's first in sectionOrder.
+  const [activeSection, setActiveSection] = useState(navOrder[0]);
+
+  const currentIndex = navOrder.indexOf(activeSection);
+  const isFirst = currentIndex === 0;
+  const isLast = currentIndex === navOrder.length - 1;
+
+  function handleNext() {
+    if (!isLast) setActiveSection(navOrder[currentIndex + 1]);
+  }
+
+  function handlePrev() {
+    if (!isFirst) setActiveSection(navOrder[currentIndex - 1]);
+  }
+
+  const ActiveFormComponent = SECTION_COMPONENTS[activeSection];
 
   return (
     <div className="min-h-screen bg-[#FAF8F3] dark:bg-[#1C2541] text-[#1C2541] dark:text-[#F2EFE9]">
@@ -59,14 +94,33 @@ function Builder() {
           <h2 className="hidden md:block font-mono-draft text-xs uppercase tracking-widest text-[#3C6E71] dark:text-[#7FA8A3] mb-4">
             Editor
           </h2>
-          <PersonalInfoForm />
-          <EducationForm />
-          <ExperienceForm />
-          <ProjectsForm />
-          <CertificationsForm />
-          <LanguagesForm />
-          <SkillsForm />
-          <InterestsForm />
+
+          {/* Only the active section's form renders here */}
+          <ActiveFormComponent />
+
+          {/* Next / Prev controls */}
+          <div className="flex justify-between mt-8">
+            <button
+              type="button"
+              onClick={handlePrev}
+              disabled={isFirst}
+              className="px-5 py-2 rounded-full border border-[#1C2541]/20 dark:border-[#F2EFE9]/20 disabled:opacity-30"
+            >
+              Previous
+            </button>
+            <span className="text-sm text-[#1C2541]/60 dark:text-[#F2EFE9]/60 self-center">
+              {SECTION_LABELS[activeSection]} ({currentIndex + 1} of{" "}
+              {navOrder.length})
+            </span>
+            <button
+              type="button"
+              onClick={handleNext}
+              disabled={isLast}
+              className="px-5 py-2 rounded-full bg-[#1C2541] dark:bg-[#F4B942] text-[#FAF8F3] dark:text-[#1C2541] disabled:opacity-30"
+            >
+              Next
+            </button>
+          </div>
         </div>
 
         {/* Preview Section */}
