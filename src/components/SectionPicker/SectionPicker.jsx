@@ -20,7 +20,10 @@ function SectionPicker({ onSelect, onClose, mode = "modal" }) {
     const newOrder = [...sectionOrder];
     const targetIndex = index + direction;
     if (targetIndex < 0 || targetIndex >= newOrder.length) return;
-    [newOrder[index], newOrder[targetIndex]] = [newOrder[targetIndex], newOrder[index]];
+    [newOrder[index], newOrder[targetIndex]] = [
+      newOrder[targetIndex],
+      newOrder[index],
+    ];
     dispatch({ type: "REORDER_SECTIONS", payload: newOrder });
   }
 
@@ -43,10 +46,13 @@ function SectionPicker({ onSelect, onClose, mode = "modal" }) {
     <div className={wrapperClass}>
       <div className={cardClass}>
         <h2 className="font-display text-2xl font-semibold mb-1">
-          {mode === "fullscreen" ? "Let's build your resume" : "Jump to a section"}
+          {mode === "fullscreen"
+            ? "Let's build your resume"
+            : "Jump to a section"}
         </h2>
         <p className="text-sm text-[#1C2541]/60 dark:text-[#F2EFE9]/60 mb-6">
-          Choose what to fill first, skip sections you don't need, or reorder them.
+          Choose what to fill first, skip sections you don't need, or reorder
+          them.
         </p>
 
         {/* Personal Info — always first, not reorderable/skippable */}
@@ -56,7 +62,9 @@ function SectionPicker({ onSelect, onClose, mode = "modal" }) {
           className="w-full flex justify-between items-center border border-[#1C2541]/10 dark:border-[#F2EFE9]/10 rounded-lg p-3 mb-2 text-left"
         >
           <span className="font-medium">Personal Info</span>
-          <span className="text-xs text-[#1C2541]/40 dark:text-[#F2EFE9]/40">Always first</span>
+          <span className="text-xs text-[#1C2541]/40 dark:text-[#F2EFE9]/40">
+            Always first
+          </span>
         </button>
 
         <div className="space-y-2">
@@ -71,7 +79,12 @@ function SectionPicker({ onSelect, onClose, mode = "modal" }) {
                   skipped ? "opacity-50" : ""
                 }`}
               >
-                <button type="button" onClick={() => handleSelect(key)} className="flex-1 text-left">
+                <button
+                  type="button"
+                  onClick={() => handleSelect(key)}
+                  disabled={skipped}
+                  className={`flex-1 text-left ${skipped ? "cursor-not-allowed" : ""}`}
+                >
                   <p className="font-medium">{SECTION_LABELS[key]}</p>
                   <p className="text-xs text-[#1C2541]/50 dark:text-[#F2EFE9]/50">
                     {skipped ? "Skipped" : done ? "Added" : "Not started"}
