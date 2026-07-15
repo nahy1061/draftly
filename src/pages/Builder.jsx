@@ -14,7 +14,6 @@ import { useResume } from "../context/ResumeContext";
 import { SECTION_LABELS } from "../utils/constants";
 import SectionPicker from "../components/SectionPicker/SectionPicker";
 
-
 // Lookup table: section key -> which form component to render for it.
 // Defined outside the component so it's created once, not every render.
 const SECTION_COMPONENTS = {
@@ -36,7 +35,7 @@ function Builder() {
 
   // The full click-through order: Personal Info always first, then
   // whatever order the other 7 sections are currently in
-  // (resumeData.sectionOrder — reorderable via SectionPicker).
+  // (resumeData.sectionOrder — re-orderable via SectionPicker).
   const navOrder = ["personalInfo", ...resumeData.sectionOrder];
 
   // Which single section's form is currently showing in the Edit column
@@ -45,18 +44,41 @@ function Builder() {
   // Whether the "Jump to Section" modal is currently open
   const [showPicker, setShowPicker] = useState(false);
 
-  // Where activeSection sits inside navOrder, and whether we're at
-  // either end (used to disable Previous/Next at the boundaries)
   const currentIndex = navOrder.indexOf(activeSection);
-  const isFirst = currentIndex === 0;
-  const isLast = currentIndex === navOrder.length - 1;
+  // Walks forward from a given index, skipping any section marked as
+  // skipped, and returns the index of the next valid section — or -1
+  // if there isn't one (we've hit the end).
+  function getNextIndex(fromIndex) {
+    let idx = fromIndex + 1;
+    while (
+      idx < navOrder.length &&
+      resumeData.skippedSections.includes(navOrder[idx])
+    ) {
+      idx++;
+    }
+    return idx < navOrder.length ? idx : -1;
+  }
+
+  // Same idea, walking backward.
+  function getPrevIndex(fromIndex) {
+    let idx = fromIndex - 1;
+    while (idx >= 0 && resumeData.skippedSections.includes(navOrder[idx])) {
+      idx--;
+    }
+    return idx >= 0 ? idx : -1;
+  }
+
+  const nextIndex = getNextIndex(currentIndex);
+  const prevIndex = getPrevIndex(currentIndex);
+  const isFirst = prevIndex === -1;
+  const isLast = nextIndex === -1;
 
   function handleNext() {
-    if (!isLast) setActiveSection(navOrder[currentIndex + 1]);
+    if (nextIndex !== -1) setActiveSection(navOrder[nextIndex]);
   }
 
   function handlePrev() {
-    if (!isFirst) setActiveSection(navOrder[currentIndex - 1]);
+    if (prevIndex !== -1) setActiveSection(navOrder[prevIndex]);
   }
 
   // Called whenever a section is picked directly — from the label row,
@@ -171,7 +193,8 @@ function Builder() {
               Previous
             </button>
             <span className="text-sm text-[#1C2541]/60 dark:text-[#F2EFE9]/60 self-center">
-              {SECTION_LABELS[activeSection]} ({currentIndex + 1} of {navOrder.length})
+              {SECTION_LABELS[activeSection]} ({currentIndex + 1} of{" "}
+              {navOrder.length})
             </span>
             <button
               type="button"
