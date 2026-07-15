@@ -3,7 +3,8 @@ import { SECTION_LABELS } from "../../utils/constants";
 
 // mode="fullscreen" -> the first-visit screen
 // mode="modal"      -> reopenable overlay, same component either way
-function SectionPicker({ onSelect, onClose, mode = "modal" }) {
+function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onActiveSectionSkip }) 
+{
   const { resumeData, dispatch } = useResume();
   const { sectionOrder, skippedSections } = resumeData;
 
@@ -12,9 +13,16 @@ function SectionPicker({ onSelect, onClose, mode = "modal" }) {
   }
 
   function toggleSkip(key) {
+    const willBecomeSkipped = !skippedSections.includes(key);
+
+    // Only act if we're SKIPPING (not un-skipping) the section
+    // that's currently open in the Edit column.
+    if (willBecomeSkipped && key === activeSection && onActiveSectionSkip) {
+      onActiveSectionSkip(key);
+    }
+
     dispatch({ type: "TOGGLE_SECTION_SKIP", payload: key });
   }
-
   // Swaps a section with its neighbor (direction: -1 = up, +1 = down)
   function moveSection(index, direction) {
     const newOrder = [...sectionOrder];

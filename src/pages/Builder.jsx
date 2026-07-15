@@ -13,6 +13,8 @@ import InterestsForm from "../components/ResumeForm/InterestsForm";
 import { useResume } from "../context/ResumeContext";
 import { SECTION_LABELS } from "../utils/constants";
 import SectionPicker from "../components/SectionPicker/SectionPicker";
+import SectionNavPills from "../components/Builder/SectionNavPills";
+import SectionNavControls from "../components/Builder/SectionNavControls";
 
 // Lookup table: section key -> which form component to render for it.
 // Defined outside the component so it's created once, not every render.
@@ -175,56 +177,27 @@ function Builder() {
           </div>
 
           {/* Section label row — skipped sections are filtered out here, they're still manageable via the picker modal, just not shown as a quick-jump pill */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {navOrder
-              .filter(
-                (key) =>
-                  key === "personalInfo" ||
-                  !resumeData.skippedSections.includes(key),
-              )
-              .map((key) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => setActiveSection(key)}
-                  className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
-                    activeSection === key
-                      ? "bg-[#1C2541] dark:bg-[#F4B942] text-[#FAF8F3] dark:text-[#1C2541] border-transparent"
-                      : "border-[#1C2541]/20 dark:border-[#F2EFE9]/20 text-[#1C2541]/60 dark:text-[#F2EFE9]/60"
-                  }`}
-                >
-                  {SECTION_LABELS[key]}
-                </button>
-              ))}
-          </div>
+          <SectionNavPills
+            navOrder={navOrder}
+            activeSection={activeSection}
+            skippedSections={resumeData.skippedSections}
+            onSelect={setActiveSection}
+          />
 
           {/* Only ONE form renders at a time — whichever matches
              activeSection */}
           <ActiveFormComponent />
 
           {/* Previous / status / Next controls */}
-          <div className="flex justify-between mt-8">
-            <button
-              type="button"
-              onClick={handlePrev}
-              disabled={isFirst}
-              className="px-5 py-2 rounded-full border border-[#1C2541]/20 dark:border-[#F2EFE9]/20 disabled:opacity-30"
-            >
-              Previous
-            </button>
-            <span className="text-sm text-[#1C2541]/60 dark:text-[#F2EFE9]/60 self-center">
-              {SECTION_LABELS[activeSection]} ({currentIndex + 1} of{" "}
-              {navOrder.length})
-            </span>
-            <button
-              type="button"
-              onClick={handleNext}
-              disabled={isLast}
-              className="px-5 py-2 rounded-full bg-[#1C2541] dark:bg-[#F4B942] text-[#FAF8F3] dark:text-[#1C2541] disabled:opacity-30"
-            >
-              Next
-            </button>
-          </div>
+          <SectionNavControls
+            activeSection={activeSection}
+            currentIndex={currentIndex}
+            total={navOrder.length}
+            isFirst={isFirst}
+            isLast={isLast}
+            onPrev={handlePrev}
+            onNext={handleNext}
+          />
         </div>
 
         {/* ===== Preview column ===== */}
