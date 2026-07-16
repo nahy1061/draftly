@@ -15,6 +15,8 @@ import { SECTION_LABELS } from "../utils/constants";
 import SectionPicker from "../components/SectionPicker/SectionPicker";
 import SectionNavPills from "../components/Builder/SectionNavPills";
 import SectionNavControls from "../components/Builder/SectionNavControls";
+import ResetButton from "../components/Builder/ResetButton";
+import PrintButton from "../components/Builder/PrintButton";
 
 // Lookup table: section key -> which form component to render for it.
 // Defined outside the component so it's created once, not every render.
@@ -45,8 +47,8 @@ function Builder() {
 
   // Whether the "Jump to Section" modal is currently open
   const [showPicker, setShowPicker] = useState(false);
-
   const currentIndex = navOrder.indexOf(activeSection);
+
   // Walks forward from a given index, skipping any section marked as
   // skipped, and returns the index of the next valid section — or -1
   // if there isn't one (we've hit the end).
@@ -122,7 +124,7 @@ function Builder() {
   return (
     <div className="min-h-screen bg-[#FAF8F3] dark:bg-[#1C2541] text-[#1C2541] dark:text-[#F2EFE9]">
       {/* Top header */}
-      <header className="flex justify-between items-center px-6 py-4 border-b border-[#1C2541]/10 dark:border-[#F2EFE9]/10">
+      <header className="print:hidden flex justify-between items-center px-6 py-4 border-b border-[#1C2541]/10 dark:border-[#F2EFE9]/10">
         <Link to="/" className="font-display text-xl font-semibold">
           Draftly
         </Link>
@@ -130,7 +132,7 @@ function Builder() {
       </header>
 
       {/* Tab switcher — mobile only, hidden on desktop via md:hidden */}
-      <div className="md:hidden flex border-b border-[#1C2541]/10 dark:border-[#F2EFE9]/10">
+      <div className="print:hidden md:hidden flex border-b border-[#1C2541]/10 dark:border-[#F2EFE9]/10">
         <button
           onClick={() => setActiveTab("edit")}
           className={`flex-1 py-3 text-sm font-medium ${
@@ -160,20 +162,23 @@ function Builder() {
         <div
           className={`${
             activeTab === "edit" ? "block" : "hidden"
-          } md:block flex-1 p-6`}
+          } md:block print:hidden flex-1 p-6`}
         >
           {/* Header row: "Editor" label + button to reopen the picker */}
           <div className="flex justify-between items-center mb-4">
             <h2 className="hidden md:block font-mono-draft text-xs uppercase tracking-widest text-[#3C6E71] dark:text-[#7FA8A3]">
               Editor
             </h2>
-            <button
-              type="button"
-              onClick={() => setShowPicker(true)}
-              className="text-xs px-3 py-1.5 rounded-full border border-[#1C2541]/20 dark:border-[#F2EFE9]/20"
-            >
-              Reorder / Skip Sections
-            </button>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setShowPicker(true)}
+                className="text-xs px-3 py-1.5 rounded-full border border-[#1C2541]/20 dark:border-[#F2EFE9]/20"
+              >
+                Reorder / Skip Sections
+              </button>
+              <ResetButton />
+            </div>
           </div>
 
           {/* Section label row — skipped sections are filtered out here, they're still manageable via the picker modal, just not shown as a quick-jump pill */}
@@ -204,11 +209,14 @@ function Builder() {
         <div
           className={`${
             activeTab === "preview" ? "block" : "hidden"
-          } md:block flex-1 p-6 md:border-l-2 border-[#1C2541]/10 dark:border-[#F2EFE9]/10 bg-[#F1E9D8]/40 dark:bg-[#171F35]`}
+          } md:block print:block flex-1 p-6 md:border-l-2 border-[#1C2541]/10 dark:border-[#F2EFE9]/10 bg-[#F1E9D8]/40 dark:bg-[#171F35]`}
         >
-          <h2 className="hidden md:block font-mono-draft text-xs uppercase tracking-widest text-[#3C6E71] dark:text-[#7FA8A3] mb-4">
-            Live Preview
-          </h2>
+          <div className="flex justify-between items-center mb-4 print:hidden">
+            <h2 className="hidden md:block font-mono-draft text-xs uppercase tracking-widest text-[#3C6E71] dark:text-[#7FA8A3]">
+              Live Preview
+            </h2>
+            <PrintButton />
+          </div>
           <ResumePreview />
         </div>
       </div>
