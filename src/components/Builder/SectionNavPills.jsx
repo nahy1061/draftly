@@ -1,15 +1,20 @@
+import { useResume } from "../../context/ResumeContext";
+import { useBuilderNav } from "../../context/BuilderNavContext";
 import { SECTION_LABELS } from "../../utils/constants";
 
-function SectionNavPills({ navOrder, activeSection, skippedSections, onSelect }) {
+function SectionNavPills() {
+  const { resumeData } = useResume();
+  const { navOrder, activeSection, setActiveSection } = useBuilderNav();
+
   return (
     <div className="flex flex-wrap gap-2 mb-6">
       {navOrder
-        .filter((key) => key === "personalInfo" || !skippedSections.includes(key))
+        .filter((key) => key === "personalInfo" || !resumeData.skippedSections.includes(key))
         .map((key) => (
           <button
             key={key}
             type="button"
-            onClick={() => onSelect(key)}
+            onClick={() => setActiveSection(key)}
             className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
               activeSection === key
                 ? "bg-[#1C2541] dark:bg-[#F4B942] text-[#FAF8F3] dark:text-[#1C2541] border-transparent"
