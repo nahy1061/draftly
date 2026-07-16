@@ -22,8 +22,8 @@ const SECTION_COMPONENTS = {
   interests: InterestsForm,
 };
 
-function EditColumn({ activeTab }) {
-  const { activeSection } = useBuilderNav();
+function EditColumn() {
+  const { activeSection, activeTab } = useBuilderNav();
   const ActiveFormComponent = SECTION_COMPONENTS[activeSection];
 
   return (

@@ -9,6 +9,7 @@ export function BuilderNavProvider({ children }) {
   const navOrder = ["personalInfo", ...resumeData.sectionOrder];
   const [activeSection, setActiveSection] = useState(navOrder[0]);
   const [showPicker, setShowPicker] = useState(false);
+  const [activeTab, setActiveTab] = useState("edit");
 
   const currentIndex = navOrder.indexOf(activeSection);
 
@@ -71,6 +72,8 @@ export function BuilderNavProvider({ children }) {
     handleActiveSectionSkip,
     showPicker,
     setShowPicker,
+    activeTab, 
+    setActiveTab,
   };
 
   return (

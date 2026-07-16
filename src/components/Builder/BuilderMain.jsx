@@ -1,9 +1,9 @@
-import { useState } from "react";
 import EditColumn from "./EditColumn/EditColumn";
 import PreviewColumn from "./PreviewColumn/PreviewColumn";
+import { useBuilderNav } from "../../context/BuilderNavContext";
 
 function BuilderMain() {
-  const [activeTab, setActiveTab] = useState("edit");
+  const { activeTab, setActiveTab } = useBuilderNav();
 
   return (
     <>
@@ -31,8 +31,8 @@ function BuilderMain() {
       </div>
 
       <div className="flex flex-col md:flex-row">
-        <EditColumn activeTab={activeTab} />
-        <PreviewColumn activeTab={activeTab} />
+        <EditColumn />
+        <PreviewColumn />
       </div>
     </>
   );
