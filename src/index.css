@@ -7,3 +7,19 @@
   --font-body: "Inter", sans-serif;
   --font-mono-draft: "IBM Plex Mono", monospace;
 }
+
+/* Custom scrollbar for scrollable panels like SectionPicker */
+.themed-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.themed-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.themed-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #3C6E71;
+  border-radius: 9999px;
+}
+.themed-scrollbar {
+  scrollbar-width: thin;           /* Firefox */
+  scrollbar-color: #3C6E71 transparent; /* Firefox: thumb track */
+}

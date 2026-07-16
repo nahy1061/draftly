@@ -1,10 +1,14 @@
 import { useResume } from "../../context/ResumeContext";
 import { SECTION_LABELS } from "../../utils/constants";
+import CloseButton from "../CloseButton";
 
-// mode="fullscreen" -> the first-visit screen
-// mode="modal"      -> reopenable overlay, same component either way
-function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onActiveSectionSkip }) 
-{
+function SectionPicker({
+  onSelect,
+  onClose,
+  mode = "modal",
+  activeSection,
+  onActiveSectionSkip,
+}) {
   const { resumeData, dispatch } = useResume();
   const { sectionOrder, skippedSections } = resumeData;
 
@@ -15,15 +19,13 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
   function toggleSkip(key) {
     const willBecomeSkipped = !skippedSections.includes(key);
 
-    // Only act if we're SKIPPING (not un-skipping) the section
-    // that's currently open in the Edit column.
     if (willBecomeSkipped && key === activeSection && onActiveSectionSkip) {
       onActiveSectionSkip(key);
     }
 
     dispatch({ type: "TOGGLE_SECTION_SKIP", payload: key });
   }
-  // Swaps a section with its neighbor (direction: -1 = up, +1 = down)
+
   function moveSection(index, direction) {
     const newOrder = [...sectionOrder];
     const targetIndex = index + direction;
@@ -40,6 +42,14 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
     if (onClose) onClose();
   }
 
+  // Closes the modal when the dark overlay itself is clicked —
+  // but NOT when a click inside the card bubbles up to it.
+  function handleOverlayClick(e) {
+    if (e.target === e.currentTarget && onClose) {
+      onClose();
+    }
+  }
+
   const wrapperClass =
     mode === "fullscreen"
       ? "min-h-screen bg-[#FAF8F3] dark:bg-[#1C2541] text-[#1C2541] dark:text-[#F2EFE9] p-6 flex flex-col items-center justify-center"
@@ -48,11 +58,16 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
   const cardClass =
     mode === "fullscreen"
       ? "w-full max-w-lg"
-      : "w-full max-w-lg bg-[#FAF8F3] dark:bg-[#1C2541] rounded-2xl p-6 max-h-[80vh] overflow-y-auto";
+      : "relative w-full max-w-lg bg-[#FAF8F3] dark:bg-[#1C2541] rounded-2xl p-6 max-h-[80vh] overflow-y-auto themed-scrollbar";
 
   return (
-    <div className={wrapperClass}>
-      <div className={cardClass}>
+    <div
+      className={wrapperClass}
+      onClick={mode === "modal" ? handleOverlayClick : undefined}
+    >
+      <div className={cardClass} onClick={(e) => e.stopPropagation()}>
+        {mode === "modal" && <CloseButton onClick={onClose} />}
+
         <h2 className="font-display text-2xl font-semibold mb-1">
           {mode === "fullscreen"
             ? "Let's build your resume"
@@ -63,7 +78,6 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
           them.
         </p>
 
-        {/* Personal Info — always first, not reorderable/skippable */}
         <button
           type="button"
           onClick={() => handleSelect("personalInfo")}
