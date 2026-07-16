@@ -1,4 +1,5 @@
 import React from "react";
+import ClickableSection from "./ClickableSection";
 
 const EducationPreview = ({ education }) => {
   return (
@@ -10,6 +11,7 @@ const EducationPreview = ({ education }) => {
           </h2>
           <div className="space-y-3">
             {education.map((entry) => (
+              <ClickableSection key={entry.id} sectionKey="education" entryId={entry.id}>
               <div key={entry.id}>
                 <div className="flex justify-between items-baseline">
                   <p className="font-medium">{entry.degree}</p>
@@ -35,6 +37,7 @@ const EducationPreview = ({ education }) => {
                     </p>
                   )}
               </div>
+              </ClickableSection>
             ))}
           </div>
         </div>

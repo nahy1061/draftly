@@ -5,6 +5,7 @@ import { generateID } from "../../utils/generateID";
 import { useResume } from "../../context/ResumeContext";
 import { languageSchema } from "../../utils/validationSchemas";
 import FormInput from "./FormInput";
+import { useAutoEditEntry } from "../../hooks/useAutoEditEntry";
 
 const emptyLanguage = {
   name: "",
@@ -49,6 +50,8 @@ function LanguagesForm() {
   function handleDelete(id) {
     dispatch({ type: "REMOVE_ITEM", payload: { section: "languages", id } });
   }
+  
+  useAutoEditEntry("languages", resumeData.languages, handleEdit);
 
   return (
     <div className="mt-10">

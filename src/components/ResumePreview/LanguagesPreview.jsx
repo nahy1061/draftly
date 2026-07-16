@@ -1,3 +1,5 @@
+import ClickableSection from "./ClickableSection";
+
 const LanguagesPreview = ({ languages }) => {
   return (
     <div>
@@ -8,12 +10,18 @@ const LanguagesPreview = ({ languages }) => {
           </h2>
           <div className="flex flex-wrap gap-2">
             {languages.map((entry) => (
-              <span
+              <ClickableSection
                 key={entry.id}
-                className="text-sm bg-[#3C6E71]/10 text-[#3C6E71] dark:bg-[#7FA8A3]/10 dark:text-[#7FA8A3] px-3 py-1 rounded-full"
+                sectionKey="languages"
+                entryId={entry.id}
               >
-                {entry.name} · {entry.proficiency}
-              </span>
+                <span
+                  key={entry.id}
+                  className="text-sm bg-[#3C6E71]/10 text-[#3C6E71] dark:bg-[#7FA8A3]/10 dark:text-[#7FA8A3] px-3 py-1 rounded-full"
+                >
+                  {entry.name} · {entry.proficiency}
+                </span>
+              </ClickableSection>
             ))}
           </div>
         </div>

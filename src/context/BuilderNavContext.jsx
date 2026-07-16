@@ -6,13 +6,21 @@ const BuilderNavContext = createContext(null);
 export function BuilderNavProvider({ children }) {
   const { resumeData, dispatch } = useResume();
 
+  // useStates
   const navOrder = ["personalInfo", ...resumeData.sectionOrder];
   const [activeSection, setActiveSection] = useState(navOrder[0]);
   const [showPicker, setShowPicker] = useState(false);
   const [activeTab, setActiveTab] = useState("edit");
+  const [pendingEntryId, setPendingEntryId] = useState(null);
 
+  // Variables
   const currentIndex = navOrder.indexOf(activeSection);
+  const nextIndex = getNextIndex(currentIndex);
+  const prevIndex = getPrevIndex(currentIndex);
+  const isFirst = prevIndex === -1;
+  const isLast = nextIndex === -1;
 
+  //Functions
   function getNextIndex(fromIndex) {
     let idx = fromIndex + 1;
     while (
@@ -31,11 +39,6 @@ export function BuilderNavProvider({ children }) {
     }
     return idx >= 0 ? idx : -1;
   }
-
-  const nextIndex = getNextIndex(currentIndex);
-  const prevIndex = getPrevIndex(currentIndex);
-  const isFirst = prevIndex === -1;
-  const isLast = nextIndex === -1;
 
   function handleNext() {
     if (nextIndex !== -1) setActiveSection(navOrder[nextIndex]);
@@ -59,6 +62,17 @@ export function BuilderNavProvider({ children }) {
     else if (prev !== -1) setActiveSection(navOrder[prev]);
   }
 
+  // Jump to a section AND mark a specific entry to auto-open for editing
+  function handlePickEntry(sectionKey, entryId) {
+    handlePickSection(sectionKey);
+    setPendingEntryId(entryId);
+  }
+
+  function clearPendingEntry() {
+    setPendingEntryId(null);
+  }
+
+  //Object
   const value = {
     navOrder,
     activeSection,
@@ -72,8 +86,11 @@ export function BuilderNavProvider({ children }) {
     handleActiveSectionSkip,
     showPicker,
     setShowPicker,
-    activeTab, 
+    activeTab,
     setActiveTab,
+    pendingEntryId,
+    handlePickEntry,
+    clearPendingEntry,
   };
 
   return (

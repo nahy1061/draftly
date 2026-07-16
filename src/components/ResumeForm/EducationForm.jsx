@@ -4,6 +4,7 @@ import { educationSchema } from "../../utils/validationSchemas";
 import FormInput from "./FormInput";
 import { useResume } from "../../context/ResumeContext";
 import { generateID } from "../../utils/generateID";
+import { useAutoEditEntry } from "../../hooks/useAutoEditEntry";
 
 const emptyEducation = {
   degree: "",
@@ -62,6 +63,8 @@ function EducationForm() {
   function handleDelete(id) {
     dispatch({ type: "REMOVE_ITEM", payload: { section: "education", id } });
   }
+
+  useAutoEditEntry("education", resumeData.education, handleEdit);
 
   return (
     <div className="mt-10">

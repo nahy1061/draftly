@@ -1,4 +1,5 @@
 import { formatMonthYear } from "../../utils/formatDate";
+import ClickableSection from "./ClickableSection";
 
 const CertificationsPreview = ({ certifications }) => {
   return (
@@ -10,6 +11,7 @@ const CertificationsPreview = ({ certifications }) => {
           </h2>
           <div className="space-y-3">
             {certifications.map((entry) => (
+              <ClickableSection key={entry.id} sectionKey="certifications" entryId={entry.id}>
               <div key={entry.id} className="flex justify-between items-baseline">
                 <div>
                   <p className="font-medium">{entry.name}</p>
@@ -21,6 +23,7 @@ const CertificationsPreview = ({ certifications }) => {
                   {formatMonthYear(entry.date)}
                 </p>
               </div>
+              </ClickableSection>
             ))}
           </div>
         </div>

@@ -5,6 +5,7 @@ import { generateID } from "../../utils/generateID";
 import { useResume } from "../../context/ResumeContext";
 import FormInput from "./FormInput";
 import { certificationSchema } from "../../utils/validationSchemas";
+import { useAutoEditEntry } from "../../hooks/useAutoEditEntry";
 
 const emptyCertification = {
   name: "",
@@ -25,12 +26,19 @@ function CertificationsForm() {
       if (editingID) {
         dispatch({
           type: "UPDATE_ITEM",
-          payload: { section: "certifications", id: editingID, item: { ...values, id: editingID } },
+          payload: {
+            section: "certifications",
+            id: editingID,
+            item: { ...values, id: editingID },
+          },
         });
       } else {
         dispatch({
           type: "ADD_ITEM",
-          payload: { section: "certifications", item: { ...values, id: generateID() } },
+          payload: {
+            section: "certifications",
+            item: { ...values, id: generateID() },
+          },
         });
       }
       resetForm();
@@ -49,18 +57,29 @@ function CertificationsForm() {
   }
 
   function handleDelete(id) {
-    dispatch({ type: "REMOVE_ITEM", payload: { section: "certifications", id } });
+    dispatch({
+      type: "REMOVE_ITEM",
+      payload: { section: "certifications", id },
+    });
   }
+
+  useAutoEditEntry("certifications", resumeData.certifications, handleEdit);
 
   return (
     <div className="mt-10">
-      <h2 className="font-display text-2xl font-semibold mb-4">Certifications</h2>
+      <h2 className="font-display text-2xl font-semibold mb-4">
+        Certifications
+      </h2>
 
       <form onSubmit={formik.handleSubmit} className="space-y-4">
         <FormInput formik={formik} name="name" label="Certification Name" />
         <FormInput formik={formik} name="issuer" label="Issuing Organization" />
         <FormInput formik={formik} name="date" label="Date" type="month" />
-        <FormInput formik={formik} name="credentialUrl" label="Credential URL" />
+        <FormInput
+          formik={formik}
+          name="credentialUrl"
+          label="Credential URL"
+        />
 
         <div className="flex gap-2">
           <button

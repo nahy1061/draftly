@@ -4,9 +4,13 @@ import { projectSchema } from "../../utils/validationSchemas";
 import FormInput from "./FormInput";
 import { useResume } from "../../context/ResumeContext";
 import { generateID } from "../../utils/generateID";
+import { useAutoEditEntry } from "../../hooks/useAutoEditEntry";
 
 function textToArray(text) {
-  return text.split(",").map((s) => s.trim()).filter(Boolean);
+  return text
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
 }
 
 function arrayToText(arr) {
@@ -39,7 +43,11 @@ function ProjectsForm() {
       if (editingID) {
         dispatch({
           type: "UPDATE_ITEM",
-          payload: { section: "projects", id: editingID, item: { ...item, id: editingID } },
+          payload: {
+            section: "projects",
+            id: editingID,
+            item: { ...item, id: editingID },
+          },
         });
       } else {
         dispatch({
@@ -70,6 +78,8 @@ function ProjectsForm() {
   function handleDelete(id) {
     dispatch({ type: "REMOVE_ITEM", payload: { section: "projects", id } });
   }
+  
+  useAutoEditEntry("projects", resumeData.projects, handleEdit);
 
   return (
     <div className="mt-10">
@@ -89,7 +99,9 @@ function ProjectsForm() {
             className="w-full px-3 py-2 rounded-lg border border-[#1C2541]/20 dark:border-[#F2EFE9]/20 bg-transparent"
           />
           {formik.touched.description && formik.errors.description && (
-            <p className="text-red-500 text-sm mt-1">{formik.errors.description}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {formik.errors.description}
+            </p>
           )}
         </div>
 

@@ -6,6 +6,7 @@ import { useResume } from "../../context/ResumeContext";
 import { generateID } from "../../utils/generateID";
 import { formatMonthYear } from "../../utils/formatDate";
 import { calculateDuration } from "../../utils/calculateDuration";
+import { useAutoEditEntry } from "../../hooks/useAutoEditEntry";
 
 const emptyExperience = {
   company: "",
@@ -76,11 +77,13 @@ function ExperienceForm() {
     });
 
     if (checked) {
-         //  setFieldTouched(field, isTouched, shouldValidate)
+      //  setFieldTouched(field, isTouched, shouldValidate)
       formik.setFieldTouched("endDate", false, false); // 3rd arg: don't re-validate on this call
     }
   }
 
+  useAutoEditEntry("experience", resumeData.experience, handleEdit);
+  
   return (
     <div className="mt-10">
       <h2 className="font-display text-2xl font-semibold mb-4">Experience</h2>

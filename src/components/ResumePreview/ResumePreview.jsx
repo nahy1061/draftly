@@ -32,6 +32,20 @@ function ResumePreview() {
         .filter((key) => !resumeData.skippedSections.includes(key))
         .map((key) => {
           const Component = PREVIEW_COMPONENTS[key];
+          const isListSection = [
+            "education",
+            "experience",
+            "projects",
+            "certifications",
+            "languages",
+          ].includes(key);
+
+          // List sections handle their own per-entry ClickableSection wrapping
+          // internally now — don't double-wrap here.
+          if (isListSection) {
+            return <Component key={key} {...{ [key]: resumeData[key] }} />;
+          }
+
           return (
             <ClickableSection key={key} sectionKey={key}>
               <Component {...{ [key]: resumeData[key] }} />
