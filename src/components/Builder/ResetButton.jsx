@@ -4,9 +4,6 @@ function ResetButton() {
   const { dispatch } = useResume();   //use context
 
   function handleReset() {
-    // Native browser confirm — simple, no extra component needed for
-    // a destructive one-off action like this. Can upgrade to a custom
-    // modal later if you want it styled to match the app.
     const confirmed = window.confirm(
       "This will erase all resume data. This can't be undone. Continue?"
     );
