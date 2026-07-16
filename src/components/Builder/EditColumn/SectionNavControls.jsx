@@ -1,9 +1,16 @@
-import { useBuilderNav } from "../../context/BuilderNavContext";
-import { SECTION_LABELS } from "../../utils/constants";
+import { useBuilderNav } from "../../../context/BuilderNavContext";
+import { SECTION_LABELS } from "../../../utils/constants";
 
 function SectionNavControls() {
-  const { activeSection, currentIndex, navOrder, isFirst, isLast, handlePrev, handleNext } =
-    useBuilderNav();
+  const {
+    activeSection,
+    currentIndex,
+    navOrder,
+    isFirst,
+    isLast,
+    handlePrev,
+    handleNext,
+  } = useBuilderNav();
 
   return (
     <div className="flex justify-between mt-8">
@@ -16,7 +23,8 @@ function SectionNavControls() {
         Previous
       </button>
       <span className="text-sm text-[#1C2541]/60 dark:text-[#F2EFE9]/60 self-center">
-        {SECTION_LABELS[activeSection]} ({currentIndex + 1} of {navOrder.length})
+        {SECTION_LABELS[activeSection]} ({currentIndex + 1} of {navOrder.length}
+        )
       </span>
       <button
         type="button"

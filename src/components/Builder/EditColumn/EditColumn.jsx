@@ -1,15 +1,15 @@
-import PersonalInfoForm from "../ResumeForm/PersonalInfoForm";
-import EducationForm from "../ResumeForm/EducationForm";
-import ExperienceForm from "../ResumeForm/ExperienceForm";
-import ProjectsForm from "../ResumeForm/ProjectsForm";
-import CertificationsForm from "../ResumeForm/CertificationsForm";
-import LanguagesForm from "../ResumeForm/LanguagesForm";
-import SkillsForm from "../ResumeForm/SkillsForm";
-import InterestsForm from "../ResumeForm/InterestsForm";
+import PersonalInfoForm from "../../ResumeForm/PersonalInfoForm";
+import EducationForm from "../../ResumeForm/EducationForm";
+import ExperienceForm from "../../ResumeForm/ExperienceForm";
+import ProjectsForm from "../../ResumeForm/ProjectsForm";
+import CertificationsForm from "../../ResumeForm/CertificationsForm";
+import LanguagesForm from "../../ResumeForm/LanguagesForm";
+import SkillsForm from "../../ResumeForm/SkillsForm";
+import InterestsForm from "../../ResumeForm/InterestsForm";
 import SectionNavPills from "./SectionNavPills";
 import SectionNavControls from "./SectionNavControls";
 import EditColumnHeader from "./EditColumnHeader";
-import { useBuilderNav } from "../../context/BuilderNavContext";
+import { useBuilderNav } from "../../../context/BuilderNavContext";
 
 const SECTION_COMPONENTS = {
   personalInfo: PersonalInfoForm,

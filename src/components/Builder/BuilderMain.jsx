@@ -1,6 +1,6 @@
 import { useState } from "react";
-import EditColumn from "./EditColumn";
-import PreviewColumn from "./PreviewColumn";
+import EditColumn from "./EditColumn/EditColumn";
+import PreviewColumn from "./PreviewColumn/PreviewColumn";
 
 function BuilderMain() {
   const [activeTab, setActiveTab] = useState("edit");

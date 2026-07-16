@@ -1,11 +1,11 @@
-import { useResume } from "../../context/ResumeContext";
+import { useResume } from "../../../context/ResumeContext";
 
 function ResetButton() {
-  const { dispatch } = useResume();   //use context
+  const { dispatch } = useResume(); //use context
 
   function handleReset() {
     const confirmed = window.confirm(
-      "This will erase all resume data. This can't be undone. Continue?"
+      "This will erase all resume data. This can't be undone. Continue?",
     );
     if (confirmed) {
       dispatch({ type: "RESET_RESUME" });

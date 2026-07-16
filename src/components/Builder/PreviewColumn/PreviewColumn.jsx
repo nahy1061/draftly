@@ -1,4 +1,4 @@
-import ResumePreview from "../ResumePreview/ResumePreview";
+import ResumePreview from "../../ResumePreview/ResumePreview";
 import PreviewColumnHeader from "./PreviewColumnHeader";
 
 function PreviewColumn({ activeTab }) {

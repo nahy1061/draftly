@@ -1,6 +1,6 @@
-import { useResume } from "../../context/ResumeContext";
-import { useBuilderNav } from "../../context/BuilderNavContext";
-import { SECTION_LABELS } from "../../utils/constants";
+import { useResume } from "../../../context/ResumeContext";
+import { useBuilderNav } from "../../../context/BuilderNavContext";
+import { SECTION_LABELS } from "../../../utils/constants";
 
 function SectionNavPills() {
   const { resumeData } = useResume();
@@ -9,7 +9,10 @@ function SectionNavPills() {
   return (
     <div className="flex flex-wrap gap-2 mb-6">
       {navOrder
-        .filter((key) => key === "personalInfo" || !resumeData.skippedSections.includes(key))
+        .filter(
+          (key) =>
+            key === "personalInfo" || !resumeData.skippedSections.includes(key),
+        )
         .map((key) => (
           <button
             key={key}
