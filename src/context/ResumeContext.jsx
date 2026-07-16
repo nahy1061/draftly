@@ -1,4 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
+import { loadFromLocalStorage, useLocalStorage } from "../hooks/useLocalStorage";
+
+const STORAGE_KEY = "draftly-resume";
 
 const initialResumeData = {
   personalInfo: {
@@ -90,10 +93,19 @@ function resumeReducer(state, action) {
   }
 }
 
+function getInitialState() {
+  const saved = loadFromLocalStorage(STORAGE_KEY);
+  return saved ? { ...initialResumeData, ...saved } : initialResumeData;
+}
+
 const ResumeContext = createContext(null);
 
 export function ResumeProvider({ children }) {
-  const [resumeData, dispatch] = useReducer(resumeReducer, initialResumeData);
+  const [resumeData, dispatch] = useReducer(resumeReducer, undefined, getInitialState);
+
+   // Auto-save: fires every time resumeData changes, for any reason
+   // (any dispatch at all — add/edit/delete/skip/reorder/etc.)
+  useLocalStorage(STORAGE_KEY, resumeData);
 
   return (
     <ResumeContext.Provider value={{ resumeData, dispatch }}>
