@@ -1,21 +1,39 @@
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { SECTION_LABELS } from "../../utils/constants";
 
-function SectionPickerRow({
-  sectionKey,
-  index,
-  isLast,
-  skipped,
-  done,
-  onSelect,
-  onMove,
-  onToggleSkip,
-}) {
+function SectionPickerRow({ sectionKey, skipped, done, onSelect, onToggleSkip }) {
+  // useSortable needs a unique `id` — we use the section key itself, since it's already unique per row.
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: sectionKey });
+
+  // These two lines translate dnd-kit's internal drag state into real CSS
+  // `transform` moves the row visually while dragging 
+  // `transition` smooths it back into place once you drop it.
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
   return (
     <div
-      className={`flex items-center gap-2 border border-[#1C2541]/10 dark:border-[#F2EFE9]/10 rounded-lg p-3 ${
+      ref={setNodeRef}
+      style={style}
+      className={`flex items-center gap-2 border border-[#1C2541]/10 dark:border-[#F2EFE9]/10 rounded-lg p-3 bg-[#FAF8F3] dark:bg-[#1C2541] ${
         skipped ? "opacity-50" : ""
       }`}
     >
+      <button
+        type="button"
+        {...attributes}
+        {...listeners}
+        className="cursor-grab active:cursor-grabbing text-[#1C2541]/30 dark:text-[#F2EFE9]/30 touch-none"
+        aria-label={`Drag to reorder ${SECTION_LABELS[sectionKey]}`}
+      >
+        ⠿
+      </button>
+
       <button
         type="button"
         onClick={() => onSelect(sectionKey)}
@@ -27,27 +45,6 @@ function SectionPickerRow({
           {skipped ? "Skipped" : done ? "Added" : "Not started"}
         </p>
       </button>
-
-      <div className="flex flex-col">
-        <button
-          type="button"
-          onClick={() => onMove(index, -1)}
-          disabled={index === 0}
-          className="text-xs px-1 disabled:opacity-20"
-          aria-label={`Move ${SECTION_LABELS[sectionKey]} up`}
-        >
-          ▲
-        </button>
-        <button
-          type="button"
-          onClick={() => onMove(index, 1)}
-          disabled={isLast}
-          className="text-xs px-1 disabled:opacity-20"
-          aria-label={`Move ${SECTION_LABELS[sectionKey]} down`}
-        >
-          ▼
-        </button>
-      </div>
 
       <button
         type="button"

@@ -1,16 +1,31 @@
 import { useResume } from "../../context/ResumeContext";
 import CloseButton from "../CloseButton";
 import SectionPickerRow from "./SectionPickerRow";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
 
-function SectionPicker({
-  onSelect,
-  onClose,
-  mode = "modal",
-  activeSection,
-  onActiveSectionSkip,
-}) {
+function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onActiveSectionSkip }) {
   const { resumeData, dispatch } = useResume();
   const { sectionOrder, skippedSections } = resumeData;
+
+  // Sensors = what kinds of input can start a drag. Pointer covers mouse + touch. 
+  // Keyboard sensor makes dragging accessible via Tab-to-focus + arrow keys, not just pointer devices.
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  );
 
   function isDone(key) {
     return resumeData[key].length > 0;
@@ -18,19 +33,20 @@ function SectionPicker({
 
   function toggleSkip(key) {
     const willBecomeSkipped = !skippedSections.includes(key);
-
     if (willBecomeSkipped && key === activeSection && onActiveSectionSkip) {
       onActiveSectionSkip(key);
     }
-
     dispatch({ type: "TOGGLE_SECTION_SKIP", payload: key });
   }
 
-  function moveSection(index, direction) {
-    const newOrder = [...sectionOrder];
-    const targetIndex = index + direction;
-    if (targetIndex < 0 || targetIndex >= newOrder.length) return;
-    [newOrder[index], newOrder[targetIndex]] = [newOrder[targetIndex], newOrder[index]];
+  // Called when a drag finishes. `active` = the item that was dragged, `over` = whatever it was dropped on top of.
+  function handleDragEnd(event) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return; // dropped on itself, or outside — no change
+
+    const oldIndex = sectionOrder.indexOf(active.id);
+    const newIndex = sectionOrder.indexOf(over.id);
+    const newOrder = arrayMove(sectionOrder, oldIndex, newIndex);
     dispatch({ type: "REORDER_SECTIONS", payload: newOrder });
   }
 
@@ -64,7 +80,7 @@ function SectionPicker({
           {mode === "fullscreen" ? "Let's build your resume" : "Jump to a section"}
         </h2>
         <p className="text-sm text-[#1C2541]/60 dark:text-[#F2EFE9]/60 mb-6">
-          Choose what to fill first, skip sections you don't need, or reorder them.
+          Choose what to fill first, skip sections you don't need, or drag to reorder them.
         </p>
 
         <button
@@ -76,21 +92,22 @@ function SectionPicker({
           <span className="text-xs text-[#1C2541]/40 dark:text-[#F2EFE9]/40">Always first</span>
         </button>
 
-        <div className="space-y-2">
-          {sectionOrder.map((key, index) => (
-            <SectionPickerRow
-              key={key}
-              sectionKey={key}
-              index={index}
-              isLast={index === sectionOrder.length - 1}
-              skipped={skippedSections.includes(key)}
-              done={isDone(key)}
-              onSelect={handleSelect}
-              onMove={moveSection}
-              onToggleSkip={toggleSkip}
-            />
-          ))}
-        </div>
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={sectionOrder} strategy={verticalListSortingStrategy}>
+            <div className="space-y-2">
+              {sectionOrder.map((key) => (
+                <SectionPickerRow
+                  key={key}
+                  sectionKey={key}
+                  skipped={skippedSections.includes(key)}
+                  done={isDone(key)}
+                  onSelect={handleSelect}
+                  onToggleSkip={toggleSkip}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
 
         {mode === "fullscreen" ? (
           <button
