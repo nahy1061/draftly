@@ -1,6 +1,6 @@
 import { useResume } from "../../context/ResumeContext";
 import ProfessionalTemplate from "./templates/ProfessionalTemplate";
-import TemplateSelector from "./TemplateSelector";
+import TemplateSelector from "./shared/TemplateSelector";
 
 // Add new templates here as they're built.
 const TEMPLATE_COMPONENTS = {
@@ -12,7 +12,8 @@ function ResumePreview() {
 
   // Falls back to Professional if the selected template isn't built
   // yet (covers "modern" too, until it exists).
-  const SelectedTemplate = TEMPLATE_COMPONENTS[resumeData.selectedTemplate] || ProfessionalTemplate;
+  const SelectedTemplate =
+    TEMPLATE_COMPONENTS[resumeData.selectedTemplate] || ProfessionalTemplate;
 
   return (
     <div>

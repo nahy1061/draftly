@@ -1,4 +1,4 @@
-import { useResume } from "../../context/ResumeContext";
+import { useResume } from "../../../context/ResumeContext";
 
 const TEMPLATES = [
   { id: "professional", label: "Professional", available: true },

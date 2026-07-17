@@ -1,4 +1,4 @@
-import ClickableSection from "./ClickableSection";
+import ClickableSection from "../shared/ClickableSection";
 
 const ProjectsPreview = ({ projects }) => {
   return (

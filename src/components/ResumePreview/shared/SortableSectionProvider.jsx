@@ -3,7 +3,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useSectionDragDrop } from "../../hooks/useSectionDragDrop";
+import { useSectionDragDrop } from "../../../hooks/useSectionDragDrop";
 
 // Every template wraps its section list in this.
 // The DIFFERENCE between templates is entirely in `children` — a function that receives the ordered section keys    and decides how to arrange them (one column, a sidebar split, whatever).

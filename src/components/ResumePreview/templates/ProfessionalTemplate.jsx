@@ -1,8 +1,8 @@
 import { useResume } from "../../../context/ResumeContext";
-import ClickableSection from "../ClickableSection";
-import DraggablePreviewSection from "../DraggablePreviewSection";
-import SortableSectionProvider from "../SortableSectionProvider";
-import PersonalInfoPreview from "../PersonalInfoPreview";
+import ClickableSection from "../shared/ClickableSection";
+import DraggablePreviewSection from "../shared/DraggablePreviewSection";
+import SortableSectionProvider from "../shared/SortableSectionProvider";
+import PersonalInfoPreview from "../sections/PersonalInfoPreview";
 import { PREVIEW_COMPONENTS } from "../previewComponentsMap";
 import { LIST_SECTIONS } from "../../../utils/sectionMeta";
 

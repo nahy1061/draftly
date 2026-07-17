@@ -1,6 +1,6 @@
-import { calculateDuration } from "../../utils/calculateDuration";
-import { formatMonthYear } from "../../utils/formatDate";
-import ClickableSection from "./ClickableSection";
+import { calculateDuration } from "../../../utils/calculateDuration";
+import { formatMonthYear } from "../../../utils/formatDate";
+import ClickableSection from "../shared/ClickableSection";
 
 const ExperiencePreview = ({ experience }) => {
   return (
