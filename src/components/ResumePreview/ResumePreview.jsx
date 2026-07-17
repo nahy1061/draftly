@@ -1,6 +1,7 @@
 import { useResume } from "../../context/ResumeContext";
 import CertificationsPreview from "./CertificationsPreview";
 import ClickableSection from "./ClickableSection";
+import DraggablePreviewSection from "./DraggablePreviewSection";
 import EducationPreview from "./EducationPreview";
 import ExperiencePreview from "./ExperiencePreview";
 import InterestsPreview from "./InterestsPreview";
@@ -8,6 +9,8 @@ import LanguagesPreview from "./LanguagesPreview";
 import PersonalInfoPreview from "./PersonalInfoPreview";
 import ProjectsPreview from "./ProjectsPreview";
 import SkillsPreview from "./SkillsPreview";
+import { DndContext, closestCenter, PointerSensor, KeyboardSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy, arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 const PREVIEW_COMPONENTS = {
   education: EducationPreview,
@@ -19,8 +22,29 @@ const PREVIEW_COMPONENTS = {
   interests: InterestsPreview,
 };
 
+const LIST_SECTIONS = ["education", "experience", "projects", "certifications", "languages"];
+
 function ResumePreview() {
-  const { resumeData } = useResume();
+  const { resumeData, dispatch } = useResume();
+
+    const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  );
+
+  function handleDragEnd(event) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = resumeData.sectionOrder.indexOf(active.id);
+    const newIndex = resumeData.sectionOrder.indexOf(over.id);
+    const newOrder = arrayMove(resumeData.sectionOrder, oldIndex, newIndex);
+    dispatch({ type: "REORDER_SECTIONS", payload: newOrder });
+  }
+
+  const visibleSections = resumeData.sectionOrder.filter(
+    (key) => !resumeData.skippedSections.includes(key)
+  );
 
   return (
     <div className="bg-white dark:bg-[#233256] rounded-lg shadow-lg p-8 sm:p-10 max-w-2xl mx-auto print:max-w-none print:shadow-none print:rounded-none text-[#1C2541] dark:text-[#F2EFE9]">
@@ -28,30 +52,22 @@ function ResumePreview() {
         <PersonalInfoPreview personalInfo={resumeData.personalInfo} />
       </ClickableSection>
 
-      {resumeData.sectionOrder
-        .filter((key) => !resumeData.skippedSections.includes(key))
-        .map((key) => {
-          const Component = PREVIEW_COMPONENTS[key];
-          const isListSection = [
-            "education",
-            "experience",
-            "projects",
-            "certifications",
-            "languages",
-          ].includes(key);
-
-          // List sections handle their own per-entry ClickableSection wrapping
-          // internally now — don't double-wrap here.
-          if (isListSection) {
-            return <Component key={key} {...{ [key]: resumeData[key] }} />;
-          }
-
-          return (
-            <ClickableSection key={key} sectionKey={key}>
-              <Component {...{ [key]: resumeData[key] }} />
-            </ClickableSection>
-          );
-        })}
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext items={visibleSections} strategy={verticalListSortingStrategy}>
+          {visibleSections.map((key) => {
+            const Component = PREVIEW_COMPONENTS[key];
+            return (
+              <DraggablePreviewSection
+                key={key}
+                sectionKey={key}
+                wrapAsClickable={!LIST_SECTIONS.includes(key)}
+              >
+                <Component {...{ [key]: resumeData[key] }} />
+              </DraggablePreviewSection>
+            );
+          })}
+        </SortableContext>
+      </DndContext>
     </div>
   );
 }
