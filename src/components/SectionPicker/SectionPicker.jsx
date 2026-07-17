@@ -1,6 +1,6 @@
 import { useResume } from "../../context/ResumeContext";
-import { SECTION_LABELS } from "../../utils/constants";
 import CloseButton from "../CloseButton";
+import SectionPickerRow from "./SectionPickerRow";
 
 function SectionPicker({
   onSelect,
@@ -30,10 +30,7 @@ function SectionPicker({
     const newOrder = [...sectionOrder];
     const targetIndex = index + direction;
     if (targetIndex < 0 || targetIndex >= newOrder.length) return;
-    [newOrder[index], newOrder[targetIndex]] = [
-      newOrder[targetIndex],
-      newOrder[index],
-    ];
+    [newOrder[index], newOrder[targetIndex]] = [newOrder[targetIndex], newOrder[index]];
     dispatch({ type: "REORDER_SECTIONS", payload: newOrder });
   }
 
@@ -42,8 +39,6 @@ function SectionPicker({
     if (onClose) onClose();
   }
 
-  // Closes the modal when the dark overlay itself is clicked —
-  // but NOT when a click inside the card bubbles up to it.
   function handleOverlayClick(e) {
     if (e.target === e.currentTarget && onClose) {
       onClose();
@@ -61,21 +56,15 @@ function SectionPicker({
       : "relative w-full max-w-lg bg-[#FAF8F3] dark:bg-[#1C2541] rounded-2xl p-6 max-h-[80vh] overflow-y-auto themed-scrollbar";
 
   return (
-    <div
-      className={wrapperClass}
-      onClick={mode === "modal" ? handleOverlayClick : undefined}
-    >
+    <div className={wrapperClass} onClick={mode === "modal" ? handleOverlayClick : undefined}>
       <div className={cardClass} onClick={(e) => e.stopPropagation()}>
         {mode === "modal" && <CloseButton onClick={onClose} />}
 
         <h2 className="font-display text-2xl font-semibold mb-1">
-          {mode === "fullscreen"
-            ? "Let's build your resume"
-            : "Jump to a section"}
+          {mode === "fullscreen" ? "Let's build your resume" : "Jump to a section"}
         </h2>
         <p className="text-sm text-[#1C2541]/60 dark:text-[#F2EFE9]/60 mb-6">
-          Choose what to fill first, skip sections you don't need, or reorder
-          them.
+          Choose what to fill first, skip sections you don't need, or reorder them.
         </p>
 
         <button
@@ -84,66 +73,23 @@ function SectionPicker({
           className="w-full flex justify-between items-center border border-[#1C2541]/10 dark:border-[#F2EFE9]/10 rounded-lg p-3 mb-2 text-left"
         >
           <span className="font-medium">Personal Info</span>
-          <span className="text-xs text-[#1C2541]/40 dark:text-[#F2EFE9]/40">
-            Always first
-          </span>
+          <span className="text-xs text-[#1C2541]/40 dark:text-[#F2EFE9]/40">Always first</span>
         </button>
 
         <div className="space-y-2">
-          {sectionOrder.map((key, index) => {
-            const skipped = skippedSections.includes(key);
-            const done = isDone(key);
-
-            return (
-              <div
-                key={key}
-                className={`flex items-center gap-2 border border-[#1C2541]/10 dark:border-[#F2EFE9]/10 rounded-lg p-3 ${
-                  skipped ? "opacity-50" : ""
-                }`}
-              >
-                <button
-                  type="button"
-                  onClick={() => handleSelect(key)}
-                  disabled={skipped}
-                  className={`flex-1 text-left ${skipped ? "cursor-not-allowed" : ""}`}
-                >
-                  <p className="font-medium">{SECTION_LABELS[key]}</p>
-                  <p className="text-xs text-[#1C2541]/50 dark:text-[#F2EFE9]/50">
-                    {skipped ? "Skipped" : done ? "Added" : "Not started"}
-                  </p>
-                </button>
-
-                <div className="flex flex-col">
-                  <button
-                    type="button"
-                    onClick={() => moveSection(index, -1)}
-                    disabled={index === 0}
-                    className="text-xs px-1 disabled:opacity-20"
-                    aria-label={`Move ${SECTION_LABELS[key]} up`}
-                  >
-                    ▲
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => moveSection(index, 1)}
-                    disabled={index === sectionOrder.length - 1}
-                    className="text-xs px-1 disabled:opacity-20"
-                    aria-label={`Move ${SECTION_LABELS[key]} down`}
-                  >
-                    ▼
-                  </button>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => toggleSkip(key)}
-                  className="text-xs px-3 py-1.5 rounded-full border border-[#1C2541]/20 dark:border-[#F2EFE9]/20"
-                >
-                  {skipped ? "Unskip" : "Skip"}
-                </button>
-              </div>
-            );
-          })}
+          {sectionOrder.map((key, index) => (
+            <SectionPickerRow
+              key={key}
+              sectionKey={key}
+              index={index}
+              isLast={index === sectionOrder.length - 1}
+              skipped={skippedSections.includes(key)}
+              done={isDone(key)}
+              onSelect={handleSelect}
+              onMove={moveSection}
+              onToggleSkip={toggleSkip}
+            />
+          ))}
         </div>
 
         {mode === "fullscreen" ? (
