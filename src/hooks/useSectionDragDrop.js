@@ -2,11 +2,11 @@ import { useSensor, useSensors, PointerSensor, KeyboardSensor } from "@dnd-kit/c
 import { sortableKeyboardCoordinates, arrayMove } from "@dnd-kit/sortable";
 import { useResume } from "../context/ResumeContext";
 
-// Every template shares this SAME drag logic — they only differ in
-// how sections are visually ARRANGED, not in how reordering works.
-// Pulling this out once means we're not rebuilding sensors/handleDragEnd
-// three times as we add templates.
-export function useSectionDragDrop() {
+// `allowedKeys` (optional) scopes this drag group to only a subset of
+// sections — e.g. Modern template's sidebar vs main column, each
+// getting their own independent drag zone. Without it, behaves exactly
+// as before (all visible sections in one group).
+export function useSectionDragDrop(allowedKeys = null) {
   const { resumeData, dispatch } = useResume();
 
   const sensors = useSensors(
@@ -24,9 +24,13 @@ export function useSectionDragDrop() {
     dispatch({ type: "REORDER_SECTIONS", payload: newOrder });
   }
 
-  const visibleSections = resumeData.sectionOrder.filter(
+  let visibleSections = resumeData.sectionOrder.filter(
     (key) => !resumeData.skippedSections.includes(key)
   );
+
+  if (allowedKeys) {
+    visibleSections = visibleSections.filter((key) => allowedKeys.includes(key));
+  }
 
   return { sensors, handleDragEnd, visibleSections };
 }
