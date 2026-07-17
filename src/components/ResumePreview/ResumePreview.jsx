@@ -9,8 +9,20 @@ import LanguagesPreview from "./LanguagesPreview";
 import PersonalInfoPreview from "./PersonalInfoPreview";
 import ProjectsPreview from "./ProjectsPreview";
 import SkillsPreview from "./SkillsPreview";
-import { DndContext, closestCenter, PointerSensor, KeyboardSensor, useSensor, useSensors } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy, arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
 
 const PREVIEW_COMPONENTS = {
   education: EducationPreview,
@@ -22,14 +34,27 @@ const PREVIEW_COMPONENTS = {
   interests: InterestsPreview,
 };
 
-const LIST_SECTIONS = ["education", "experience", "projects", "certifications", "languages"];
+const LIST_SECTIONS = [
+  "education",
+  "experience",
+  "projects",
+  "certifications",
+  "languages",
+];
 
 function ResumePreview() {
   const { resumeData, dispatch } = useResume();
 
-    const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 200,
+        tolerance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   function handleDragEnd(event) {
@@ -43,7 +68,7 @@ function ResumePreview() {
   }
 
   const visibleSections = resumeData.sectionOrder.filter(
-    (key) => !resumeData.skippedSections.includes(key)
+    (key) => !resumeData.skippedSections.includes(key),
   );
 
   return (
@@ -52,8 +77,15 @@ function ResumePreview() {
         <PersonalInfoPreview personalInfo={resumeData.personalInfo} />
       </ClickableSection>
 
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext items={visibleSections} strategy={verticalListSortingStrategy}>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={visibleSections}
+          strategy={verticalListSortingStrategy}
+        >
           {visibleSections.map((key) => {
             const Component = PREVIEW_COMPONENTS[key];
             return (
