@@ -10,6 +10,7 @@ import SectionNavPills from "./SectionNavPills";
 import SectionNavControls from "./SectionNavControls";
 import EditColumnHeader from "./EditColumnHeader";
 import { useBuilderNav } from "../../../context/BuilderNavContext";
+import { useSwipeNavigation } from "../../../hooks/useSwipeNavigation";
 
 const SECTION_COMPONENTS = {
   personalInfo: PersonalInfoForm,
@@ -23,7 +24,7 @@ const SECTION_COMPONENTS = {
 };
 
 function EditColumn() {
-  const { activeSection, activeTab } = useBuilderNav();
+  const { activeSection, activeTab, handleNext, handlePrev } = useBuilderNav();
   const ActiveFormComponent = SECTION_COMPONENTS[activeSection];
 
   const swipeHandlers = useSwipeNavigation(handleNext, handlePrev);
