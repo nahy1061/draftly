@@ -38,7 +38,7 @@ const initialResumeData = {
   ],
   skippedSections: [], // array of skipped section keys
   hasSeenSectionPicker: false, // has the full-screen picker been shown yet
-  selectedTemplate: "modern",
+  selectedTemplate: "professional",
 };
 
 function resumeReducer(state, action) {
