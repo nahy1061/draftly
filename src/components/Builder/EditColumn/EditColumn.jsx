@@ -26,8 +26,11 @@ function EditColumn() {
   const { activeSection, activeTab } = useBuilderNav();
   const ActiveFormComponent = SECTION_COMPONENTS[activeSection];
 
+  const swipeHandlers = useSwipeNavigation(handleNext, handlePrev);
+
   return (
     <div
+      {...swipeHandlers}
       className={`${
         activeTab === "edit" ? "block" : "hidden"
       } md:block print:hidden flex-1 p-6`}
