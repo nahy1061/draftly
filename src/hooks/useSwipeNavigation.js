@@ -7,14 +7,7 @@ const SWIPE_THRESHOLD = 50; // minimum horizontal distance (px) to count as a sw
 export function useSwipeNavigation(onSwipeLeft, onSwipeRight) {
   const touchStartRef = useRef(null);
 
-  function handleTouchStart(e) {
-    const target = e.target;
-    // Don't hijack swipes that start on text inputs — that's normal text selection/cursor movement, not page navigation.
-    if (target.closest("input, textarea, select")) {
-      touchStartRef.current = null;
-      return;
-    }
-
+function handleTouchStart(e) {
     const touch = e.touches[0];
     touchStartRef.current = { x: touch.clientX, y: touch.clientY };
   }
@@ -27,9 +20,7 @@ export function useSwipeNavigation(onSwipeLeft, onSwipeRight) {
     const deltaY = touch.clientY - touchStartRef.current.y;
 
     touchStartRef.current = null;
-
-    // Ignore if the movement was mostly vertical (a scroll), or too
-    // short to count as an intentional swipe.
+    
     if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
     if (Math.abs(deltaX) < Math.abs(deltaY)) return;
 
