@@ -16,8 +16,10 @@ function AtsTemplate() {
         print:max-w-none print:p-0
         **:text-black!
         [&_h2]:text-sm! [&_h2]:font-bold! [&_h2]:uppercase! [&_h2]:tracking-wide!
-        [&_h2]:border-b-2! [&_h2]:border-black! [&_h2]:pb-1! [&_h2]:mb-3!
+        [&_h2]:border-b-2! [&_h2]:border-black! [&_h2]:pb-1! [&_h2]:mb-2!
         [&_span]:bg-transparent! [&_span]:p-0!
+        [&_span]:after:content-['|'] [&_span]:after:ml-1.5 [&_span:last-child]:after:content-none
+        [&_[data-ats-key='skills']_span]:after:content-[','] [&_[data-ats-key='skills']_span]:after:ml-0 [&_[data-ats-key='skills']_span]:after:mr-1.5
         [&_a]:underline!
       "
     >
@@ -25,12 +27,12 @@ function AtsTemplate() {
         <AtsPersonalInfo personalInfo={resumeData.personalInfo} />
       </ClickableSection>
 
-      <div className="mt-2 space-y-5">
+      <div className="mt-2 space-y-4">
         <SortableSectionProvider>
           {(visibleSections) =>
             visibleSections.map((key) => {
               const Component = PREVIEW_COMPONENTS[key];
-              return (
+              const sectionContent = (
                 <DraggablePreviewSection
                   key={key}
                   sectionKey={key}
@@ -38,6 +40,18 @@ function AtsTemplate() {
                 >
                   <Component {...{ [key]: resumeData[key] }} />
                 </DraggablePreviewSection>
+              );
+
+              // Tag Skills specifically so the comma-separator CSS
+              // rule above can target only this section, without
+              // touching Languages/Interests/Projects (which keep
+              // the pipe separator).
+              return key === "skills" ? (
+                <div key={key} data-ats-key="skills">
+                  {sectionContent}
+                </div>
+              ) : (
+                sectionContent
               );
             })
           }
