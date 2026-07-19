@@ -12,23 +12,20 @@ function AtsTemplate() {
   return (
     <div
       className="
-        bg-white max-w-2xl mx-auto p-10 text-black
+        bg-white max-w-2xl mx-auto p-10 font-sans
         print:max-w-none print:p-0
-        [&_h2]:text-sm! [&_h2]:font-bold! [&_h2]:uppercase! [&_h2]:tracking-normal! [&_h2]:text-black!
-        [&_span]:bg-transparent! [&_span]:p-0! [&_span]:text-black!
-        [&_a]:text-black! [&_a]:underline!
+        **:text-black!
+        [&_h2]:text-sm! [&_h2]:font-bold! [&_h2]:uppercase! [&_h2]:tracking-wide!
+        [&_h2]:border-b-2! [&_h2]:border-black! [&_h2]:pb-1! [&_h2]:mb-3!
+        [&_span]:bg-transparent! [&_span]:p-0!
+        [&_a]:underline!
       "
     >
-      {/* Deliberately NOT theme-aware (no dark: classes) — ATS output
-         should always render as plain black-on-white, regardless of
-         the app's own light/dark mode, since that's the safest,
-         most universally readable format. */}
-
       <ClickableSection sectionKey="personalInfo">
         <AtsPersonalInfo personalInfo={resumeData.personalInfo} />
       </ClickableSection>
 
-      <div className="mt-4 space-y-6">
+      <div className="mt-2 space-y-5">
         <SortableSectionProvider>
           {(visibleSections) =>
             visibleSections.map((key) => {
