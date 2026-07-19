@@ -35,7 +35,9 @@ function ModernTemplate() {
 
       <div className="flex flex-col sm:flex-row print:flex-row">
         {/* Sidebar — narrow, accent-colored, own independent drag group */}
-        <div className="sm:w-1/3 bg-[#1C2541] dark:bg-[#171F35] text-[#FAF8F3] p-6">
+        {/* <div className="sm:w-1/3 bg-[#1C2541] dark:bg-[#171F35] text-[#FAF8F3] p-6 [&_span]:bg-[#F4B942]/15 [&_span]:text-[#F4B942]"> */}
+        <div className="sm:w-1/3 bg-[#1C2541] dark:bg-[#171F35] text-[#FAF8F3] p-6 [&_h2]:text-[#F4B942] [&_span]:bg-[#F4B942]/15 [&_span]:text-[#F4B942]">
+        {/* <div className="sm:w-1/3 bg-[#1C2541] dark:bg-[#171F35] text-[#FAF8F3] p-6"> */}
           <SortableSectionProvider allowedKeys={SIDEBAR_SECTIONS}>
             {(sidebarKeys) => sidebarKeys.map((key) => renderSection(key, resumeData))}
           </SortableSectionProvider>
