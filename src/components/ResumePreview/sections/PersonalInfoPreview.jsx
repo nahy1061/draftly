@@ -12,14 +12,26 @@ const PersonalInfoPreview = ({ personalInfo }) => {
   ].filter(Boolean);
 
   const linkItems = [
-    personalInfo.linkedin && { icon: FaLinkedin, text: "LinkedIn", href: personalInfo.linkedin },
-    personalInfo.github && { icon: FaGithub, text: "GitHub", href: personalInfo.github },
-    personalInfo.portfolio && { icon: FaGlobe, text: "Portfolio", href: personalInfo.portfolio },
+    personalInfo.linkedin && {
+      icon: FaLinkedin,
+      text: "LinkedIn",
+      href: personalInfo.linkedin,
+    },
+    personalInfo.github && {
+      icon: FaGithub,
+      text: "GitHub",
+      href: personalInfo.github,
+    },
+    personalInfo.portfolio && {
+      icon: FaGlobe,
+      text: "Portfolio",
+      href: personalInfo.portfolio,
+    },
   ].filter(Boolean);
 
   return (
     <div>
-      <div className="flex items-center gap-5 pb-6 mb-6 border-b border-[#1C2541]/10 dark:border-[#F2EFE9]/10">
+      <div className="flex items-center gap-5 pb-6 mb-6 border-b border-[#1C2541]/10">
         {personalInfo.profilePhoto && (
           <img
             src={personalInfo.profilePhoto}
@@ -32,7 +44,7 @@ const PersonalInfoPreview = ({ personalInfo }) => {
             {personalInfo.fullName || "Your Name"}
           </h1>
           {personalInfo.jobTitle && (
-            <p className="text-[#3C6E71] dark:text-[#7FA8A3] font-medium mt-1">
+            <p className="text-[#3C6E71] font-medium mt-1">
               {personalInfo.jobTitle}
             </p>
           )}
@@ -42,8 +54,11 @@ const PersonalInfoPreview = ({ personalInfo }) => {
       {contactItems.length > 0 && (
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm mb-3">
           {contactItems.map(({ icon: Icon, text }) => (
-            <span key={text} className="flex items-center gap-1.5 text-[#1C2541]/70 dark:text-[#F2EFE9]/70">
-              <Icon className="text-[#3C6E71] dark:text-[#7FA8A3]" size={14} />
+            <span
+              key={text}
+              className="flex items-center gap-1.5 text-[#1C2541]/70"
+            >
+              <Icon className="text-[#3C6E71]" size={14} />
               {text}
             </span>
           ))}
@@ -58,7 +73,7 @@ const PersonalInfoPreview = ({ personalInfo }) => {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-[#3C6E71] dark:text-[#7FA8A3] hover:underline"
+              className="flex items-center gap-1.5 text-[#3C6E71] hover:underline"
             >
               <Icon size={14} />
               {text}
@@ -69,7 +84,7 @@ const PersonalInfoPreview = ({ personalInfo }) => {
 
       {personalInfo.summary && (
         <div>
-          <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#3C6E71] dark:text-[#7FA8A3] mb-2">
+          <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#3C6E71] mb-2">
             Summary
           </h2>
           <p className="text-sm leading-relaxed">{personalInfo.summary}</p>

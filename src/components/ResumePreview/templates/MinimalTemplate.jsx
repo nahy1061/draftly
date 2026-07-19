@@ -12,11 +12,11 @@ function MinimalTemplate() {
   return (
     <div
       className="
-        bg-white dark:bg-[#1a1f2e] max-w-2xl mx-auto p-10 sm:p-14
-        text-[#1C2541] dark:text-[#F2EFE9]
+        bg-white max-w-2xl mx-auto p-10 sm:p-14
+        text-[#1C2541]
         print:max-w-none print:p-0
-        [&_h2]:text-[10px]! [&_h2]:font-normal! [&_h2]:tracking-[0.2em]! [&_h2]:text-[#1C2541]/40! dark:[&_h2]:text-[#F2EFE9]/40!
-        [&_span]:bg-transparent! [&_span]:p-0! [&_span]:text-[#1C2541]/70! dark:[&_span]:text-[#F2EFE9]/70!
+        [&_h2]:text-[10px]! [&_h2]:font-normal! [&_h2]:tracking-[0.2em]! [&_h2]:text-[#1C2541]/40!
+        [&_span]:bg-transparent! [&_span]:p-0! [&_span]:text-[#1C2541]/70!
       "
     >
       <ClickableSection sectionKey="personalInfo">

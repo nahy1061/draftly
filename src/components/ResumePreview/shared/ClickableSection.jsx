@@ -16,7 +16,7 @@ function ClickableSection({ sectionKey, entryId, children }) {
   return (
     <div
       onClick={handleClick}
-      className="cursor-pointer rounded-lg transition-colors hover:bg-[#3C6E71]/5 dark:hover:bg-[#7FA8A3]/5 -mx-2 px-2"
+      className="cursor-pointer rounded-lg transition-colors hover:bg-[#3C6E71]/5 -mx-2 px-2"
     >
       {children}
     </div>
