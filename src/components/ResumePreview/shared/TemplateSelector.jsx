@@ -3,7 +3,8 @@ import { useResume } from "../../../context/ResumeContext";
 const TEMPLATES = [
   { id: "professional", label: "Professional", available: true },
   { id: "modern", label: "Modern", available: true },
-  { id: "minimal", label: "Minimal", available: false },
+  { id: "minimal", label: "Minimal", available: true },
+  { id: "ats", label: "ATS-Friendly", available: true },
 ];
 
 function TemplateSelector() {
