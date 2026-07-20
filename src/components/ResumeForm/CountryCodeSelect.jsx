@@ -24,11 +24,11 @@ function CountryCodeSelect({ value, onChange }) {
       name="countryCode"
       value={value}
       onChange={onChange}
-      className="px-2 py-2 rounded-lg border border-[#1C2541]/20 dark:border-[#F2EFE9]/20 bg-transparent"
+      className="px-2 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-all"
     >
         {
             countryCodes.map(el=>(
-                <option key={el.label} value={el.code} className="text-black">{el.label}</option>
+                <option key={el.label} value={el.code} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">{el.label}</option>
             ))
         }
     </select>

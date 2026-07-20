@@ -20,7 +20,7 @@ function SectionPickerRow({ sectionKey, skipped, done, onSelect, onToggleSkip })
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center gap-2 border border-[#1C2541]/10 dark:border-[#F2EFE9]/10 rounded-lg p-3 bg-[#FAF8F3] dark:bg-[#1C2541] ${
+      className={`flex items-center gap-2 border border-slate-200 dark:border-slate-800/80 rounded-xl p-3 bg-white dark:bg-slate-900 transition-colors ${
         skipped ? "opacity-50" : ""
       }`}
     >
@@ -28,7 +28,7 @@ function SectionPickerRow({ sectionKey, skipped, done, onSelect, onToggleSkip })
         type="button"
         {...attributes}
         {...listeners}
-        className="cursor-grab active:cursor-grabbing text-[#1C2541]/30 dark:text-[#F2EFE9]/30 touch-none"
+        className="cursor-grab active:cursor-grabbing text-slate-400 dark:text-slate-600 hover:text-slate-600 dark:hover:text-slate-400 touch-none"
         aria-label={`Drag to reorder ${SECTION_LABELS[sectionKey]}`}
       >
         ⠿
@@ -40,8 +40,8 @@ function SectionPickerRow({ sectionKey, skipped, done, onSelect, onToggleSkip })
         disabled={skipped}
         className={`flex-1 text-left ${skipped ? "cursor-not-allowed" : ""}`}
       >
-        <p className="font-medium">{SECTION_LABELS[sectionKey]}</p>
-        <p className="text-xs text-[#1C2541]/50 dark:text-[#F2EFE9]/50">
+        <p className="font-medium text-sm">{SECTION_LABELS[sectionKey]}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">
           {skipped ? "Skipped" : done ? "Added" : "Not started"}
         </p>
       </button>
@@ -49,7 +49,7 @@ function SectionPickerRow({ sectionKey, skipped, done, onSelect, onToggleSkip })
       <button
         type="button"
         onClick={() => onToggleSkip(sectionKey)}
-        className="text-xs px-3 py-1.5 rounded-full border border-[#1C2541]/20 dark:border-[#F2EFE9]/20"
+        className="text-xs px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors"
       >
         {skipped ? "Unskip" : "Skip"}
       </button>

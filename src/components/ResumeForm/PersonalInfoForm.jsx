@@ -51,7 +51,7 @@ function PersonalInfoForm() {
             value={formik.values.phone}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="flex-1 px-3 py-2 rounded-lg border border-[#1C2541]/20 dark:border-[#F2EFE9]/20 bg-transparent"
+            className="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-all"
           />
         </div>
         {formik.touched.phone && formik.errors.phone && (
@@ -68,7 +68,7 @@ function PersonalInfoForm() {
       <div>
         <div className="flex gap-2">
         <label className="block text-sm font-medium mb-1">Summary</label>
-        <span className="text-xs text-[#1C2541]/40 dark:text-[#F2EFE9]/40 self-center">
+        <span className="text-xs text-slate-400 dark:text-slate-500 self-center">
           (Optional)
         </span>
         </div>
@@ -78,7 +78,7 @@ function PersonalInfoForm() {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           rows={4}
-          className="w-full px-3 py-2 rounded-lg border border-[#1C2541]/20 dark:border-[#F2EFE9]/20 bg-transparent"
+          className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-all"
         />
         <div className="flex justify-between text-sm mt-1">
           {formik.touched.summary && formik.errors.summary ? (
@@ -86,7 +86,7 @@ function PersonalInfoForm() {
           ) : (
             <span />
           )}
-          <span className="text-[#1C2541]/40 dark:text-[#F2EFE9]/40">
+          <span className="text-slate-400 dark:text-slate-500">
             {formik.values.summary.length}/500
           </span>
         </div>

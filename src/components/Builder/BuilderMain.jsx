@@ -7,23 +7,23 @@ function BuilderMain() {
 
   return (
     <>
-      <div className="print:hidden md:hidden flex border-b border-[#1C2541]/10 dark:border-[#F2EFE9]/10">
+      <div className="print:hidden md:hidden flex border-b border-slate-200/50 dark:border-slate-800/50">
         <button
           onClick={() => setActiveTab("edit")}
-          className={`flex-1 py-3 text-sm font-medium ${
+          className={`flex-1 py-3 text-sm font-medium transition-colors ${
             activeTab === "edit"
-              ? "border-b-2 border-[#F4B942] text-[#1C2541] dark:text-[#F2EFE9]"
-              : "text-[#1C2541]/40 dark:text-[#F2EFE9]/40"
+              ? "border-b-2 border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 font-semibold"
+              : "text-slate-400 dark:text-slate-500"
           }`}
         >
           Edit
         </button>
         <button
           onClick={() => setActiveTab("preview")}
-          className={`flex-1 py-3 text-sm font-medium ${
+          className={`flex-1 py-3 text-sm font-medium transition-colors ${
             activeTab === "preview"
-              ? "border-b-2 border-[#F4B942] text-[#1C2541] dark:text-[#F2EFE9]"
-              : "text-[#1C2541]/40 dark:text-[#F2EFE9]/40"
+              ? "border-b-2 border-indigo-600 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 font-semibold"
+              : "text-slate-400 dark:text-slate-500"
           }`}
         >
           Preview

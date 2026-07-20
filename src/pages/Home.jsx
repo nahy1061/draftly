@@ -6,7 +6,7 @@ function Home() {
   return (
     <div className="relative min-h-screen bg-[#FAFBFD] dark:bg-[#0B0F19] bg-[radial-gradient(at_top_right,rgba(99,102,241,0.06),transparent_50%),radial-gradient(at_bottom_left,rgba(139,92,246,0.04),transparent_50%)] dark:bg-[radial-gradient(at_top_right,rgba(99,102,241,0.12),transparent_40%),radial-gradient(at_bottom_left,rgba(139,92,246,0.08),transparent_40%)] text-slate-900 dark:text-slate-100 transition-colors duration-300 font-body overflow-hidden">
       {/* Grid line texture */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-size-[24px_24px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
 
       {/* Distinct Floating Sticky Header */}
       <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0B0F19]/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 transition-colors duration-300">
@@ -17,7 +17,7 @@ function Home() {
               alt="Draftly Logo"
               className="h-8 w-8 object-contain dark:invert transition-transform group-hover:scale-105"
             />
-            <span className="font-display text-xl font-bold tracking-tight bg-gradient-to-r from-slate-900 via-indigo-950 to-indigo-900 dark:from-white dark:via-slate-100 dark:to-slate-300 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
+            <span className="font-display text-xl font-bold tracking-tight bg-linear-to-r from-slate-900 via-indigo-950 to-indigo-900 dark:from-white dark:via-slate-100 dark:to-slate-300 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
               Draftly
             </span>
           </Link>
@@ -41,7 +41,7 @@ function Home() {
 
           <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.05] text-slate-900 dark:text-white mb-6">
             Your resume, drafted to{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
               perfection
             </span>
             .
@@ -56,7 +56,7 @@ function Home() {
           <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
             <Link
               to="/builder"
-              className="inline-flex justify-center items-center gap-2 bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-500 dark:to-indigo-600 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-indigo-500/20 dark:shadow-none hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-200 group"
+              className="inline-flex justify-center items-center gap-2 bg-linear-to-r from-indigo-600 to-indigo-700 dark:from-indigo-500 dark:to-indigo-600 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-indigo-500/20 dark:shadow-none hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-200 group"
             >
               Start Drafting
               <span aria-hidden="true" className="group-hover:translate-x-0.5 transition-transform">→</span>
@@ -67,7 +67,7 @@ function Home() {
         {/* Hero Card Visual */}
         <div className="relative flex-1 flex justify-center w-full lg:w-auto">
           {/* Subtle background glow effect behind the card */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/20 dark:to-violet-500/20 rounded-2xl blur-3xl opacity-75 scale-90 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-linear-to-tr from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/20 dark:to-violet-500/20 rounded-2xl blur-3xl opacity-75 scale-90 pointer-events-none"></div>
           <Card />
         </div>
       </main>

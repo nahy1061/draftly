@@ -3,7 +3,7 @@ function CloseButton({ onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="absolute top-4 right-4 text-xl text-[#1C2541]/40 dark:text-[#F2EFE9]/40 hover:text-[#1C2541] dark:hover:text-[#F2EFE9]"
+      className="absolute top-4 right-4 text-xl text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-350 transition-colors duration-200"
       aria-label="Close"
     >
       ×

@@ -8,12 +8,12 @@ function ThemeToggle() {
       onClick={toggleTheme}
       aria-label="Toggle dark mode"
       aria-pressed={isDark}
-      className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 ${
-        isDark ? "bg-[#F4B942]" : "bg-[#1C2541]/15"
+       className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 ${
+        isDark ? "bg-indigo-500" : "bg-slate-900/15"
       }`}
     >
       <span
-        className={`flex h-6 w-6 items-center justify-center rounded-full bg-[#FAF8F3] shadow-md transform transition-transform duration-300 text-xs ${
+        className={`flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-md transform transition-transform duration-300 text-xs ${
           isDark ? "translate-x-7" : "translate-x-1"
         }`}
       >

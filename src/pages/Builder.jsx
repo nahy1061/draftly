@@ -14,7 +14,7 @@ function BuilderContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F3] dark:bg-[#1C2541] text-[#1C2541] dark:text-[#F2EFE9]">
+    <div className="min-h-screen bg-[#FAFBFD] dark:bg-[#0B0F19] text-slate-900 dark:text-slate-100 transition-colors duration-300 font-body">
       <BuilderHeader />
       <BuilderMain />
 

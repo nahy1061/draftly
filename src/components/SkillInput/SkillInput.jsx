@@ -35,11 +35,11 @@ function SkillInput({ section, fieldKey, placeholder }) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 px-3 py-2 rounded-lg border border-[#1C2541]/20 dark:border-[#F2EFE9]/20 bg-transparent"
+          className="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-all"
         />
         <button
           type="submit"
-          className="bg-[#1C2541] dark:bg-[#F4B942] text-[#FAF8F3] dark:text-[#1C2541] px-5 py-2 rounded-full font-medium"
+          className="bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 px-5 py-2 rounded-lg font-semibold active:scale-95 transition-all duration-200"
         >
           Add
         </button>
@@ -49,13 +49,13 @@ function SkillInput({ section, fieldKey, placeholder }) {
         {resumeData[section].map((item) => (
           <span
             key={item.id}
-            className="flex items-center gap-1.5 text-sm bg-[#3C6E71]/10 text-[#3C6E71] dark:bg-[#7FA8A3]/10 dark:text-[#7FA8A3] px-3 py-1 rounded-full"
+            className="flex items-center gap-1.5 text-sm bg-indigo-50 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50 px-3 py-1 rounded-full"
           >
             {item[fieldKey]}
             <button
               type="button"
               onClick={() => handleRemove(item.id)}
-              className="hover:text-red-500"
+              className="hover:text-red-500 font-bold ml-0.5"
               aria-label={`Remove ${item[fieldKey]}`}
             >
               ×

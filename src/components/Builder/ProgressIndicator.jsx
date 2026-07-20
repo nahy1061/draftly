@@ -19,7 +19,7 @@ function ProgressIndicator() {
 
   return (
     <div className="mb-4">
-      <div className="flex justify-between text-xs text-[#1C2541]/60 dark:text-[#F2EFE9]/60 mb-2">
+      <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
         <span>Progress</span>
         <span>
           {doneCount} of {totalCount} sections
@@ -30,7 +30,7 @@ function ProgressIndicator() {
           <div
             key={i}
             className={`h-2 flex-1 rounded-full transition-colors ${
-              filled ? "bg-[#F4B942]" : "bg-[#1C2541]/10 dark:bg-[#F2EFE9]/10"
+              filled ? "bg-indigo-600 dark:bg-indigo-500" : "bg-slate-200 dark:bg-slate-800"
             }`}
           />
         ))}

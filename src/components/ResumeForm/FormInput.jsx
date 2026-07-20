@@ -12,13 +12,13 @@ function FormInput({ formik, name, label, type = "text", options }) {
           value={formik.values[name]}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-            className="w-full px-3 py-2 rounded-lg border border-[#1C2541]/20 dark:border-[#F2EFE9]/20 bg-transparent scheme-light dark:scheme-dark"
+            className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-all scheme-light dark:scheme-dark"
         >
           {options.map((opt) => (
             <option
               key={opt}
               value={opt}
-              className="bg-[#FAF8F3] dark:bg-[#233256] text-[#1C2541] dark:text-[#F2EFE9]"
+              className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
             >
               {opt}
             </option>
@@ -35,8 +35,8 @@ function FormInput({ formik, name, label, type = "text", options }) {
           onBlur={formik.handleBlur}
           className={
             isCheckbox
-              ? "h-4 w-4"
-              : "w-full px-3 py-2 rounded-lg border border-[#1C2541]/20 dark:border-[#F2EFE9]/20 bg-transparent"
+              ? "h-4 w-4 rounded-sm border-slate-300 dark:border-slate-700 text-indigo-600 focus:ring-indigo-500"
+              : "w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-all"
           }
         />
       )}

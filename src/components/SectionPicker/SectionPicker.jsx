@@ -63,33 +63,33 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
 
   const wrapperClass =
     mode === "fullscreen"
-      ? "min-h-screen bg-[#FAF8F3] dark:bg-[#1C2541] text-[#1C2541] dark:text-[#F2EFE9] p-6 flex flex-col items-center justify-center"
-      : "fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50";
+      ? "min-h-screen bg-[#FAFBFD] dark:bg-[#0B0F19] text-slate-900 dark:text-slate-100 p-6 flex flex-col items-center justify-center transition-colors duration-300"
+      : "fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in";
 
   const cardClass =
     mode === "fullscreen"
       ? "w-full max-w-lg"
-      : "relative w-full max-w-lg bg-[#FAF8F3] dark:bg-[#1C2541] rounded-2xl p-6 max-h-[80vh] overflow-y-auto themed-scrollbar";
+      : "relative w-full max-w-lg bg-white dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 max-h-[80vh] overflow-y-auto themed-scrollbar shadow-2xl";
 
   return (
     <div className={wrapperClass} onClick={mode === "modal" ? handleOverlayClick : undefined}>
       <div className={cardClass} onClick={(e) => e.stopPropagation()}>
         {mode === "modal" && <CloseButton onClick={onClose} />}
 
-        <h2 className="font-display text-2xl font-semibold mb-1">
+        <h2 className="font-display text-2xl font-bold mb-1">
           {mode === "fullscreen" ? "Let's build your resume" : "Jump to a section"}
         </h2>
-        <p className="text-sm text-[#1C2541]/60 dark:text-[#F2EFE9]/60 mb-6">
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
           Choose what to fill first, skip sections you don't need, or drag to reorder them.
         </p>
 
         <button
           type="button"
           onClick={() => handleSelect("personalInfo")}
-          className="w-full flex justify-between items-center border border-[#1C2541]/10 dark:border-[#F2EFE9]/10 rounded-lg p-3 mb-2 text-left"
+          className="w-full flex justify-between items-center border border-slate-200 dark:border-slate-800/80 rounded-xl p-3 mb-2 text-left hover:bg-slate-50 dark:hover:bg-slate-900/40 transition-colors"
         >
-          <span className="font-medium">Personal Info</span>
-          <span className="text-xs text-[#1C2541]/40 dark:text-[#F2EFE9]/40">Always first</span>
+          <span className="font-medium text-sm">Personal Info</span>
+          <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">Always first</span>
         </button>
 
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
@@ -113,7 +113,7 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
           <button
             type="button"
             onClick={() => handleSelect("personalInfo")}
-            className="w-full mt-6 bg-[#1C2541] dark:bg-[#F4B942] text-[#FAF8F3] dark:text-[#1C2541] px-5 py-2.5 rounded-full font-medium"
+            className="w-full mt-6 bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600 text-white px-5 py-3 rounded-xl font-semibold shadow-lg shadow-indigo-600/10 active:scale-95 transition-all duration-200"
           >
             Start Building
           </button>
@@ -121,7 +121,7 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
           <button
             type="button"
             onClick={onClose}
-            className="w-full mt-6 border border-[#1C2541]/20 dark:border-[#F2EFE9]/20 px-5 py-2.5 rounded-full"
+            className="w-full mt-6 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900 px-5 py-2.5 rounded-xl transition-colors duration-200 font-medium"
           >
             Close
           </button>

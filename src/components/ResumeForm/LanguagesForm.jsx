@@ -70,7 +70,7 @@ function LanguagesForm() {
         <div className="flex gap-2">
           <button
             type="submit"
-            className="bg-[#1C2541] dark:bg-[#F4B942] text-[#FAF8F3] dark:text-[#1C2541] px-5 py-2 rounded-full font-medium"
+            className="bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 px-5 py-2 rounded-lg font-semibold active:scale-95 transition-all duration-200 shadow-lg shadow-indigo-600/10 dark:shadow-none"
           >
             {editingID ? "Update" : "Add"} Language
           </button>
@@ -78,7 +78,7 @@ function LanguagesForm() {
             <button
               type="button"
               onClick={handleCancelEdit}
-              className="px-5 py-2 rounded-full border border-[#1C2541]/20 dark:border-[#F2EFE9]/20"
+              className="px-5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors font-medium"
             >
               Cancel
             </button>
@@ -91,11 +91,11 @@ function LanguagesForm() {
           resumeData.languages.map((entry) => (
             <li
               key={entry.id}
-              className="flex justify-between items-center border border-[#1C2541]/10 dark:border-[#F2EFE9]/10 rounded-lg p-4"
+              className="flex justify-between items-center border border-slate-200 dark:border-slate-800/80 rounded-xl p-4 bg-white/40 dark:bg-slate-900/40"
             >
               <div>
                 <p className="font-medium">{entry.name}</p>
-                <p className="text-sm text-[#1C2541]/60 dark:text-[#F2EFE9]/60">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   {entry.proficiency}
                 </p>
               </div>
@@ -103,14 +103,14 @@ function LanguagesForm() {
                 <button
                   type="button"
                   onClick={() => handleEdit(entry)}
-                  className="text-sm px-3 py-1 rounded-full border border-[#1C2541]/20 dark:border-[#F2EFE9]/20"
+                  className="text-xs px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors font-medium"
                 >
                   Edit
                 </button>
                 <button
                   type="button"
                   onClick={() => handleDelete(entry.id)}
-                  className="text-sm px-3 py-1 rounded-full border border-red-400 text-red-500"
+                  className="text-xs px-3 py-1.5 rounded-lg border border-red-200 dark:border-red-950 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors font-medium"
                 >
                   Delete
                 </button>
