@@ -8,7 +8,7 @@ function BuilderHeader() {
         <img
           src="src/assets/logo/pen-logo.png"
           alt="Draftly logo"
-          className="h-8 w-8 object-contain dark:invert transition-transform group-hover:scale-105"
+          className="h-8 w-8 object-contain transition-transform group-hover:scale-105"
         />
         <span className="font-display text-xl font-bold tracking-tight bg-linear-to-r from-slate-900 via-indigo-950 to-indigo-900 dark:from-white dark:via-slate-100 dark:to-slate-300 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
           Draftly
