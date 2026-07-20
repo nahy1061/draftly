@@ -15,15 +15,25 @@ function MinimalTemplate() {
         bg-white max-w-2xl mx-auto p-10 sm:p-14
         text-[#1C2541]
         print:max-w-none print:p-0
-        [&_h2]:text-[10px]! [&_h2]:font-normal! [&_h2]:tracking-[0.2em]! [&_h2]:text-[#1C2541]/40!
+
+        [&_h1]:text-4xl! [&_h1]:font-bold! [&_h1]:leading-none!
+
+        [&_h2]:flex! [&_h2]:items-center! [&_h2]:gap-3!
+        [&_h2]:text-[10px]! [&_h2]:font-semibold! [&_h2]:tracking-[0.2em]! [&_h2]:text-[#3C6E71]!
+        [&_h2]:after:content-['']! [&_h2]:after:flex-1!
+        [&_h2]:after:h-px! [&_h2]:after:bg-[#1C2541]/10!
+
         [&_span]:bg-transparent! [&_span]:p-0! [&_span]:text-[#1C2541]/70!
+
+        [&_.space-y-3>div]:pb-3.5! [&_.space-y-3>div]:border-b! [&_.space-y-3>div]:border-[#1C2541]/8!
+        [&_.space-y-3>div:last-child]:border-b-0! [&_.space-y-3>div:last-child]:pb-0!
       "
     >
       <ClickableSection sectionKey="personalInfo">
         <PersonalInfoPreview personalInfo={resumeData.personalInfo} />
       </ClickableSection>
 
-      <div className="mt-10 space-y-8">
+      <div className="mt-8 space-y-6">
         <SortableSectionProvider>
           {(visibleSections) =>
             visibleSections.map((key) => {
@@ -46,3 +56,4 @@ function MinimalTemplate() {
 }
 
 export default MinimalTemplate;
+
