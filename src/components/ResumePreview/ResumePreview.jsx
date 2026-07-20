@@ -13,18 +13,18 @@ const TEMPLATE_COMPONENTS = {
   ats: AtsTemplate,
 };
 
-function ResumePreview() {
+function ResumePreview({printRef}) {
   const { resumeData } = useResume();
 
-  // Falls back to Professional if the selected template isn't built
-  // yet (covers "modern" too, until it exists).
   const SelectedTemplate =
     TEMPLATE_COMPONENTS[resumeData.selectedTemplate] || ProfessionalTemplate;
 
   return (
     <div>
       <TemplateSelector />
-      <SelectedTemplate />
+      <div ref={printRef}>
+        <SelectedTemplate />
+      </div>
     </div>
   );
 }
