@@ -10,7 +10,7 @@ function PrintButton({ printRef }) {
     : "Resume";
 
     console.log("printRef in PrintButton:", printRef, printRef?.current);
-    
+
   const handlePrint = useReactToPrint({
     contentRef: printRef,
     documentTitle,
@@ -22,7 +22,7 @@ function PrintButton({ printRef }) {
       onClick={handlePrint}
       className="text-xs px-3 py-1.5 rounded-full border border-[#1C2541]/20 dark:border-[#F2EFE9]/20"
     >
-      Print / Save as PDF
+      Print / Save Pdf
     </button>
   );
 }

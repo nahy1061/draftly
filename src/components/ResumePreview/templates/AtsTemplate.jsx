@@ -27,7 +27,7 @@ function AtsTemplate() {
         <AtsPersonalInfo personalInfo={resumeData.personalInfo} />
       </ClickableSection>
 
-      <div className="mt-2 space-y-4">
+      <div className="mt-2 space-y-2">
         <SortableSectionProvider>
           {(visibleSections) =>
             visibleSections.map((key) => {

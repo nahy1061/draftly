@@ -31,7 +31,7 @@ const PersonalInfoPreview = ({ personalInfo }) => {
 
   return (
     <div>
-      <div className="flex items-center gap-5 pb-6 mb-6 border-b border-[#1C2541]/10">
+      <div className="flex items-center gap-5 pb-6 mb-6 print:pb-3 print:mb-3 border-b border-[#1C2541]/10">
         {personalInfo.profilePhoto && (
           <img
             src={personalInfo.profilePhoto}
@@ -52,7 +52,7 @@ const PersonalInfoPreview = ({ personalInfo }) => {
       </div>
 
       {contactItems.length > 0 && (
-        <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm mb-3">
+        <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm mb-3 print:mb-1.5">
           {contactItems.map(({ icon: Icon, text }) => (
             <span
               key={text}
@@ -66,7 +66,7 @@ const PersonalInfoPreview = ({ personalInfo }) => {
       )}
 
       {linkItems.length > 0 && (
-        <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm mb-6">
+        <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm mb-6 print:mb-3">
           {linkItems.map(({ icon: Icon, text, href }) => (
             <a
               key={text}

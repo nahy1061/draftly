@@ -5,11 +5,11 @@ const CertificationsPreview = ({ certifications }) => {
   return (
     <div>
       {certifications.length > 0 && (
-        <div className="mt-6">
-          <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#3C6E71] mb-3">
+        <div className="mt-6 print:mt-3">
+          <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#3C6E71] mb-3 print:mb-1.5">
             Certifications
           </h2>
-          <div className="space-y-3">
+          <div className="space-y-3 print:space-y-1.5">
             {certifications.map((entry) => (
               <ClickableSection
                 key={entry.id}
@@ -18,7 +18,7 @@ const CertificationsPreview = ({ certifications }) => {
               >
                 <div
                   key={entry.id}
-                  className="flex justify-between items-baseline"
+                  className="flex justify-between items-baseline print:break-inside-avoid"
                 >
                   <div>
                     <p className="font-medium">{entry.name}</p>

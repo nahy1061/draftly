@@ -4,18 +4,18 @@ const ProjectsPreview = ({ projects }) => {
   return (
     <div>
       {projects.length > 0 && (
-        <div className="mt-6">
-          <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#3C6E71] mb-3">
+        <div className="mt-6 print:mt-3">
+          <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#3C6E71] mb-3 print:mb-1.5">
             Projects
           </h2>
-          <div className="space-y-3">
+          <div className="space-y-3 print:space-y-1.5">
             {projects.map((entry) => (
               <ClickableSection
                 key={entry.id}
                 sectionKey="projects"
                 entryId={entry.id}
               >
-                <div key={entry.id}>
+                <div key={entry.id} className="print:break-inside-avoid">
                   <p className="font-medium">{entry.name}</p>
                   <p className="text-sm text-[#1C2541]/60">
                     {entry.description}

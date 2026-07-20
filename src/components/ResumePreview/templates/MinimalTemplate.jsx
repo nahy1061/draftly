@@ -33,7 +33,7 @@ function MinimalTemplate() {
         <PersonalInfoPreview personalInfo={resumeData.personalInfo} />
       </ClickableSection>
 
-      <div className="mt-8 space-y-6">
+      <div className="mt-8 space-y-6 print:mt-4 print:space-y-3">
         <SortableSectionProvider>
           {(visibleSections) =>
             visibleSections.map((key) => {

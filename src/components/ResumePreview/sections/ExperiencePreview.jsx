@@ -6,18 +6,18 @@ const ExperiencePreview = ({ experience }) => {
   return (
     <div>
       {experience.length > 0 && (
-        <div className="mt-6">
-          <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#3C6E71] mb-3">
+        <div className="mt-6 print:mt-3">
+          <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-[#3C6E71] mb-3 print:mb-1.5">
             Experience
           </h2>
-          <div className="space-y-3">
+          <div className="space-y-3 print:space-y-1.5">
             {experience.map((entry) => (
               <ClickableSection
                 key={entry.id}
                 sectionKey="experience"
                 entryId={entry.id}
               >
-                <div key={entry.id}>
+                <div key={entry.id} className="print:break-inside-avoid">
                   <div className="flex justify-between items-baseline">
                     <p className="font-medium">{entry.position}</p>
                     <p className="text-sm text-[#1C2541]/60">

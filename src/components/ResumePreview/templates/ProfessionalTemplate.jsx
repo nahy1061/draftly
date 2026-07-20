@@ -15,7 +15,7 @@ function ProfessionalTemplate() {
          at a glance, instead of just being "Minimal with bigger headings" */}
       <div
         className="
-          bg-[#3C6E71] px-8 sm:px-10 pt-8 sm:pt-10 pb-6 sm:pb-7
+          bg-[#3C6E71] px-8 sm:px-10 pt-8 sm:pt-10 pb-6 sm:pb-7 print:px-6 print:pt-5 print:pb-4
           **:text-white!
           [&_h2]:text-[#F4B942]!
           [&_svg]:text-[#F4B942]!
@@ -35,8 +35,9 @@ function ProfessionalTemplate() {
          than Minimal's deliberately-faint ones */}
       <div
         className="
-          px-8 sm:px-10 pb-8 sm:pb-10 pt-6 sm:pt-7
-          [&_h2]:border-b-2! [&_h2]:border-[#F4B942]/60! [&_h2]:pb-1.5! [&_h2]:mb-3!
+        px-8 sm:px-10 pb-8 sm:pb-10 pt-6 sm:pt-7 print:px-6 print:pb-6 print:pt-4
+        [&_h2]:border-b-2! [&_h2]:border-[#F4B942]/60! [&_h2]:pb-1.5! [&_h2]:mb-3!
+        print:[&_h2]:mb-2! print:[&_h2]:pb-1!
         "
       >
         <SortableSectionProvider>
