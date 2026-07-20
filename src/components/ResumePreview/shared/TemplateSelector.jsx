@@ -15,7 +15,7 @@ function TemplateSelector() {
   }
 
   return (
-    <div className="flex gap-2 mb-4 print:hidden">
+    <div className="flex flex-wrap gap-2 mb-4 print:hidden">
       {TEMPLATES.map((t) => (
         <button
           key={t.id}

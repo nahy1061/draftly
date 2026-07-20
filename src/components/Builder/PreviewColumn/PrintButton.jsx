@@ -9,8 +9,6 @@ function PrintButton({ printRef }) {
     ? `${fullName.replace(/\s+/g, "_")}_Resume`
     : "Resume";
 
-    console.log("printRef in PrintButton:", printRef, printRef?.current);
-
   const handlePrint = useReactToPrint({
     contentRef: printRef,
     documentTitle,
@@ -20,9 +18,9 @@ function PrintButton({ printRef }) {
     <button
       type="button"
       onClick={handlePrint}
-      className="text-xs px-3 py-1.5 rounded-full border border-[#1C2541]/20 dark:border-[#F2EFE9]/20"
+     className="text-xs px-3 py-1.5 rounded-full bg-[#4C7A5A] hover:bg-[#4C7A5A]/90 dark:bg-[#F4B942] text-[#FAF8F3] dark:text-[#1C2541] active:scale-95"
     >
-      Print / Save Pdf
+      Print / Save PDF
     </button>
   );
 }
