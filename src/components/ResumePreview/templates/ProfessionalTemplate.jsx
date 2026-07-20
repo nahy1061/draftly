@@ -10,27 +10,52 @@ function ProfessionalTemplate() {
   const { resumeData } = useResume();
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-8 sm:p-10 max-w-2xl mx-auto print:max-w-none print:shadow-none print:rounded-none text-[#1C2541]">
-      <ClickableSection sectionKey="personalInfo">
-        <PersonalInfoPreview personalInfo={resumeData.personalInfo} />
-      </ClickableSection>
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-2xl mx-auto print:max-w-none print:shadow-none print:rounded-none text-[#1C2541]">
+      {/* Masthead — solid teal band gives Professional its own identity
+         at a glance, instead of just being "Minimal with bigger headings" */}
+      <div
+        className="
+          bg-[#3C6E71] px-8 sm:px-10 pt-8 sm:pt-10 pb-6 sm:pb-7
+          **:text-white!
+          [&_h2]:text-[#F4B942]!
+          [&_svg]:text-[#F4B942]!
+          [&_a]:text-[#F4B942]!
+          [&_a:hover]:text-white!
+          **:border-white/20!
+          [&_.cursor-pointer:hover]:bg-white/10!
+        "
+      >
+        <ClickableSection sectionKey="personalInfo">
+          <PersonalInfoPreview personalInfo={resumeData.personalInfo} />
+        </ClickableSection>
+      </div>
 
-      <SortableSectionProvider>
-        {(visibleSections) =>
-          visibleSections.map((key) => {
-            const Component = PREVIEW_COMPONENTS[key];
-            return (
-              <DraggablePreviewSection
-                key={key}
-                sectionKey={key}
-                wrapAsClickable={!LIST_SECTIONS.includes(key)}
-              >
-                <Component {...{ [key]: resumeData[key] }} />
-              </DraggablePreviewSection>
-            );
-          })
-        }
-      </SortableSectionProvider>
+      {/* Body — section headings get a full underline rule instead of
+         just color+tracking, so they anchor the content more firmly
+         than Minimal's deliberately-faint ones */}
+      <div
+        className="
+          px-8 sm:px-10 pb-8 sm:pb-10 pt-6 sm:pt-7
+          [&_h2]:border-b-2! [&_h2]:border-[#F4B942]/60! [&_h2]:pb-1.5! [&_h2]:mb-3!
+        "
+      >
+        <SortableSectionProvider>
+          {(visibleSections) =>
+            visibleSections.map((key) => {
+              const Component = PREVIEW_COMPONENTS[key];
+              return (
+                <DraggablePreviewSection
+                  key={key}
+                  sectionKey={key}
+                  wrapAsClickable={!LIST_SECTIONS.includes(key)}
+                >
+                  <Component {...{ [key]: resumeData[key] }} />
+                </DraggablePreviewSection>
+              );
+            })
+          }
+        </SortableSectionProvider>
+      </div>
     </div>
   );
 }
