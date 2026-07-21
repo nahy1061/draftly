@@ -51,7 +51,7 @@ function PersonalInfoForm() {
             value={formik.values.phone}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-all"
+           className="flex-1 min-w-0 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-all"
           />
         </div>
         {formik.touched.phone && formik.errors.phone && (
