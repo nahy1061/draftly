@@ -12,9 +12,9 @@ function MinimalTemplate() {
   return (
     <div
       className="
-        bg-white max-w-2xl mx-auto p-10 sm:p-14
+       bg-white w-2xl p-10 sm:p-14
         text-[#1C2541]
-        print:max-w-none print:p-0
+        print:w-auto print:p-0
 
         [&_h1]:text-4xl! [&_h1]:font-bold! [&_h1]:leading-none!
 

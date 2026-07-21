@@ -12,8 +12,8 @@ function AtsTemplate() {
   return (
     <div
       className="
-        bg-white max-w-2xl mx-auto p-10 font-sans
-        print:max-w-none print:p-0
+       bg-white w-2xl p-10 font-sans
+        print:w-auto print:p-0
         **:text-black!
         [&_h2]:text-sm! [&_h2]:font-bold! [&_h2]:uppercase! [&_h2]:tracking-wide!
         [&_h2]:border-b-2! [&_h2]:border-black! [&_h2]:pb-1! [&_h2]:mb-2!

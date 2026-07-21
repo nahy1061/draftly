@@ -4,6 +4,7 @@ import TemplateSelector from "./shared/TemplateSelector";
 import ModernTemplate from "./templates/ModernTemplate";
 import MinimalTemplate from "./templates/MinimalTemplate";
 import AtsTemplate from "./templates/AtsTemplate";
+import ScaledPreviewWrapper from "./shared/ScaledPreviewWrapper";
 
 // Add new templates here as they're built.
 const TEMPLATE_COMPONENTS = {
@@ -13,7 +14,7 @@ const TEMPLATE_COMPONENTS = {
   ats: AtsTemplate,
 };
 
-function ResumePreview({printRef}) {
+function ResumePreview({ printRef }) {
   const { resumeData } = useResume();
 
   const SelectedTemplate =
@@ -22,9 +23,9 @@ function ResumePreview({printRef}) {
   return (
     <div>
       <TemplateSelector />
-      <div ref={printRef}>
+      <ScaledPreviewWrapper printRef={printRef}>
         <SelectedTemplate />
-      </div>
+      </ScaledPreviewWrapper>
     </div>
   );
 }

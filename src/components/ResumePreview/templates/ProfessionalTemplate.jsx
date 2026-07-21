@@ -10,7 +10,7 @@ function ProfessionalTemplate() {
   const { resumeData } = useResume();
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-2xl mx-auto print:max-w-none print:shadow-none print:rounded-none text-[#1C2541]">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden w-2xl print:w-auto print:shadow-none print:rounded-none text-[#1C2541]">
       {/* Masthead — solid teal band gives Professional its own identity
          at a glance, instead of just being "Minimal with bigger headings" */}
       <div

@@ -39,15 +39,15 @@ function ModernTemplate() {
   const { resumeData } = useResume();
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-2xl mx-auto print:max-w-none print:shadow-none print:rounded-none text-[#1C2541]">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden w-2xl print:w-auto print:shadow-none print:rounded-none text-[#1C2541]">
       {/* ── Header ─────────────────────────────────────────────────────────
-          CSS overrides scoped here so other templates using
-          PersonalInfoPreview are completely unaffected:
+          Always rendered at full desktop size — ScaledPreviewWrapper
+          handles shrinking this for mobile, not breakpoints.
             • h1  → larger, bolder name
             • img.rounded-full → gold ring on profile photo           */}
       <div
         className="
-          px-8 sm:px-10 pt-8 sm:pt-10 pb-7 print:px-6 print:pt-5 print:pb-4
+          px-10 pt-10 pb-7 print:px-6 print:pt-5 print:pb-4
           [&_h1]:text-4xl! [&_h1]:font-bold! [&_h1]:leading-tight!
           [&_img.rounded-full]:ring-2! [&_img.rounded-full]:ring-[#F4B942]/55!
           [&_img.rounded-full]:ring-offset-2! [&_img.rounded-full]:ring-offset-white!
@@ -61,16 +61,16 @@ function ModernTemplate() {
       {/* Gradient accent divider — richer than the old static yellow border */}
       <div className="h-0.75 bg-linear-to-r from-[#F4B942] via-[#3C6E71]/60 to-transparent" />
 
-      <div className="flex flex-col sm:flex-row print:flex-row">
+      <div className="flex flex-row">
         {/* ── Sidebar ──────────────────────────────────────────────────────
-            Slightly deeper tan (#E2D8C3 vs #EAE0CB) for more contrast.
+            Always a true side column — never stacks, never reflows.
             Section headings (h2) get a 2px teal left accent bar.
             Skill pills get a visible border on top of their bg tint.
             Languages → bulleted list, Interests → dot-separated inline. */}
         <div
           className="
-            sm:w-1/3 bg-[#E2D8C3] p-6 sm:p-8 print:p-4
-            border-b sm:border-b-0 sm:border-r border-[#1C2541]/15
+            w-1/3 bg-[#E2D8C3] p-8 print:p-4
+            border-r border-[#1C2541]/15
 
             [&>*+*]:mt-6! print:[&>*+*]:mt-3!
 
@@ -111,7 +111,7 @@ function ModernTemplate() {
         </div>
 
         {/* ── Main column — everything else, own independent drag group */}
-       <div className="sm:w-2/3 p-8 sm:p-10 print:p-4">
+        <div className="w-2/3 p-10 print:p-4">
           <SortableSectionProvider
             allowedKeys={resumeData.sectionOrder.filter(
               (k) => !SIDEBAR_SECTIONS.includes(k),
