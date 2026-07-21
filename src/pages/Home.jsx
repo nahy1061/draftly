@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import ThemeToggle from "../components/ThemeToggle";
 import Card from "../components/Card";
+import penLogo from "../assets/logo/pen-logo.png";
 
 function Home() {
   return (
@@ -13,7 +14,7 @@ function Home() {
         <div className="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
           <Link to="/" className="flex items-center gap-2.5 group">
             <img
-              src="src/assets/logo/pen-logo.png"
+              src={penLogo}
               alt="Draftly Logo"
               className="h-8 w-8 object-contain dark:invert transition-transform group-hover:scale-105"
             />
@@ -134,7 +135,7 @@ function Home() {
           <div className="flex flex-col items-center md:items-start gap-2">
             <div className="flex items-center gap-2">
               <img
-                src="src/assets/logo/pen-logo.png"
+                src={penLogo}
                 alt="Draftly Logo"
                 className="h-6 w-6 object-contain dark:invert"
               />
