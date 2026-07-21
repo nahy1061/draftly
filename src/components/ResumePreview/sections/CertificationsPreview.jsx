@@ -18,13 +18,13 @@ const CertificationsPreview = ({ certifications }) => {
               >
                 <div
                   key={entry.id}
-                  className="flex justify-between items-baseline print:break-inside-avoid"
+                  className="flex justify-between items-baseline gap-3 print:break-inside-avoid"
                 >
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <p className="font-medium">{entry.name}</p>
                     <p className="text-sm text-[#3C6E71]">{entry.issuer}</p>
                   </div>
-                  <p className="text-sm text-[#1C2541]/60">
+                  <p className="text-sm text-[#1C2541]/60 shrink-0 whitespace-nowrap">
                     {formatMonthYear(entry.date)}
                   </p>
                 </div>

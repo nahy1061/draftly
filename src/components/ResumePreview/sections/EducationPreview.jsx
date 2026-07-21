@@ -16,10 +16,9 @@ const EducationPreview = ({ education }) => {
                 sectionKey="education"
                 entryId={entry.id}
               >
-                <div key={entry.id} className="print:break-inside-avoid">
-                  <div className="flex justify-between items-baseline">
-                    <p className="font-medium">{entry.degree}</p>
-                    <p className="text-sm text-[#1C2541]/60">
+               <div className="flex justify-between items-baseline gap-3">
+                    <p className="font-medium min-w-0 flex-1">{entry.degree}</p>
+                    <p className="text-sm text-[#1C2541]/60 shrink-0 whitespace-nowrap">
                       {entry.startYear}–{entry.endYear}
                     </p>
                   </div>

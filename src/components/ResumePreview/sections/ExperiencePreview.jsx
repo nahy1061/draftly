@@ -18,18 +18,18 @@ const ExperiencePreview = ({ experience }) => {
                 entryId={entry.id}
               >
                 <div key={entry.id} className="print:break-inside-avoid">
-                  <div className="flex justify-between items-baseline">
-                    <p className="font-medium">{entry.position}</p>
-                    <p className="text-sm text-[#1C2541]/60">
+                  <div className="flex justify-between items-baseline gap-3">
+                    <p className="font-medium min-w-0 flex-1">{entry.position}</p>
+                    <p className="text-sm text-[#1C2541]/60 shrink-0 whitespace-nowrap">
                       {formatMonthYear(entry.startDate)} –{" "}
                       {entry.current
                         ? "Present"
                         : formatMonthYear(entry.endDate)}
                     </p>
                   </div>
-                  <div className="flex justify-between items-baseline">
-                    <p className="text-sm text-[#3C6E71]">{entry.company}</p>
-                    <p className="text-xs font-mono-draft uppercase tracking-wide text-[#1C2541]/40">
+                  <div className="flex justify-between items-baseline gap-3">
+                    <p className="text-sm text-[#3C6E71] min-w-0 flex-1">{entry.company}</p>
+                    <p className="text-xs font-mono-draft uppercase tracking-wide text-[#1C2541]/40 shrink-0 whitespace-nowrap">
                       {calculateDuration(
                         entry.startDate,
                         entry.current ? "" : entry.endDate,
