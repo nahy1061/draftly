@@ -6,6 +6,7 @@ import { useResume } from "../../context/ResumeContext";
 import { generateID } from "../../utils/generateID";
 import { useAutoEditEntry } from "../../hooks/useAutoEditEntry";
 
+// Converts comma-separated string from the form field into an array for storage
 function textToArray(text) {
   return text
     .split(",")
@@ -13,6 +14,7 @@ function textToArray(text) {
     .filter(Boolean);
 }
 
+// Converts back to a string for display in the form input when editing
 function arrayToText(arr) {
   return arr.join(", ");
 }
@@ -20,7 +22,7 @@ function arrayToText(arr) {
 const emptyProject = {
   name: "",
   description: "",
-  technologies: "", // kept as TEXT in the form itself, converted on submit
+  technologies: "", // comma-separated in the form, array in resumeData
   githubLink: "",
   liveDemoLink: "",
 };
@@ -34,9 +36,9 @@ function ProjectsForm() {
     validationSchema: projectSchema,
     enableReinitialize: true,
     onSubmit: (values, { resetForm }) => {
-      // Convert the technologies text into an array right before saving
       const item = {
         ...values,
+        // Parse to array on submit — stored as array, edited as comma string
         technologies: textToArray(values.technologies),
       };
 
@@ -63,7 +65,7 @@ function ProjectsForm() {
 
   function handleEdit(entry) {
     setEditingID(entry.id);
-    // Convert the array BACK to text so the input box can show it
+    // technologies is an array in state but a string in the form — convert back
     formik.setValues({
       ...entry,
       technologies: arrayToText(entry.technologies),

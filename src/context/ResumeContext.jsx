@@ -6,13 +6,14 @@ import {
 
 const STORAGE_KEY = "draftly-resume";
 
+// Default shape — merged with localStorage on load so new fields don't break old saves
 const initialResumeData = {
   personalInfo: {
     fullName: "",
     profilePhoto: null,
     jobTitle: "",
     email: "",
-    countryCode: "92", //Default to Pakistan
+    countryCode: "92", // default Pakistan
     phone: "",
     address: "",
     linkedin: "",
@@ -36,8 +37,8 @@ const initialResumeData = {
     "languages",
     "interests",
   ],
-  skippedSections: [], // array of skipped section keys
-  hasSeenSectionPicker: false, // has the full-screen picker been shown yet
+  skippedSections: [], // hidden from nav + preview, still in sectionOrder
+  hasSeenSectionPicker: false,
   selectedTemplate: "professional",
 };
 
@@ -58,7 +59,6 @@ function resumeReducer(state, action) {
         ],
       };
     case "UPDATE_ITEM":
-      // action.payload = { section: "education", id: "abc-123", item: {...updatedFields} }
       return {
         ...state,
         [action.payload.section]: state[action.payload.section].map((el) =>
@@ -83,13 +83,13 @@ function resumeReducer(state, action) {
     case "REORDER_SECTIONS":
       return { ...state, sectionOrder: action.payload };
 
+    // Toggle: remove if present, add if not
     case "TOGGLE_SECTION_SKIP":
-      // action.payload = "languages" — the section key to toggle
       return {
         ...state,
         skippedSections: state.skippedSections.includes(action.payload)
-          ? state.skippedSections.filter((key) => key !== action.payload) // already skipped -> un-skip
-          : [...state.skippedSections, action.payload], // not skipped -> skip it
+          ? state.skippedSections.filter((key) => key !== action.payload)
+          : [...state.skippedSections, action.payload],
       };
 
     case "MARK_PICKER_SEEN":
@@ -100,6 +100,7 @@ function resumeReducer(state, action) {
   }
 }
 
+// Spread saved over defaults so missing new fields always get a value
 function getInitialState() {
   const saved = loadFromLocalStorage(STORAGE_KEY);
   return saved ? { ...initialResumeData, ...saved } : initialResumeData;
@@ -108,14 +109,14 @@ function getInitialState() {
 const ResumeContext = createContext(null);
 
 export function ResumeProvider({ children }) {
+  // Lazy init reads localStorage once; third arg is useReducer's init function
   const [resumeData, dispatch] = useReducer(
     resumeReducer,
     undefined,
     getInitialState,
   );
 
-  // Auto-save: fires every time resumeData changes, for any reason
-  // (any dispatch at all — add/edit/delete/skip/reorder/etc.)
+  // Auto-save on every dispatch (add/edit/delete/skip/reorder/etc.)
   useLocalStorage(STORAGE_KEY, resumeData);
 
   return (

@@ -5,7 +5,7 @@ import Card from "../components/Card";
 function Home() {
   return (
     <div className="relative min-h-screen bg-[#FAFBFD] dark:bg-[#0B0F19] bg-[radial-gradient(at_top_right,rgba(99,102,241,0.06),transparent_50%),radial-gradient(at_bottom_left,rgba(139,92,246,0.04),transparent_50%)] dark:bg-[radial-gradient(at_top_right,rgba(99,102,241,0.12),transparent_40%),radial-gradient(at_bottom_left,rgba(139,92,246,0.08),transparent_40%)] text-slate-900 dark:text-slate-100 transition-colors duration-300 font-body overflow-hidden">
-      {/* Grid line texture */}
+      {/* Grid line texture — pointer-events-none so it doesn't block clicks */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-size-[24px_24px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
 
       {/* Distinct Floating Sticky Header */}
@@ -33,7 +33,6 @@ function Home() {
       {/* Hero Section */}
       <main className="relative max-w-6xl mx-auto px-6 pt-20 pb-28 flex flex-col lg:flex-row items-center gap-16">
         <div className="flex-1 text-center lg:text-left">
-          {/* Sub-badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold mb-6 shadow-sm">
             <span className="flex h-2 w-2 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse"></span>
             100% local, private & secure
@@ -47,12 +46,10 @@ function Home() {
             .
           </h1>
 
-          {/* Tagline */}
           <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-10 max-w-lg mx-auto lg:mx-0">
             Create elegant, high-impact resumes in minutes. Completely private, professional templates, instant PDF download.
           </p>
 
-          {/* Start Drafting Button */}
           <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
             <Link
               to="/builder"
@@ -66,7 +63,7 @@ function Home() {
 
         {/* Hero Card Visual */}
         <div className="relative flex-1 flex justify-center w-full lg:w-auto">
-          {/* Subtle background glow effect behind the card */}
+          {/* Glow blur sits behind the card via absolute positioning, not a real shadow */}
           <div className="absolute inset-0 bg-linear-to-tr from-indigo-500/10 to-violet-500/10 dark:from-indigo-500/20 dark:to-violet-500/20 rounded-2xl blur-3xl opacity-75 scale-90 pointer-events-none"></div>
           <Card />
         </div>

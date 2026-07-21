@@ -38,6 +38,7 @@ function MinimalTemplate() {
           {(visibleSections) =>
             visibleSections.map((key) => {
               const Component = PREVIEW_COMPONENTS[key];
+              // LIST_SECTIONS get per-entry click handlers, not a whole-section wrapper
               return (
                 <DraggablePreviewSection
                   key={key}

@@ -9,10 +9,10 @@ export function calculateDuration(startDate, endDate) {
   } else {
     const today = new Date();
     endYear = today.getFullYear();
-    endMonth = today.getMonth() + 1; // getMonth() is 0-indexed
+    endMonth = today.getMonth() + 1; // getMonth() is 0-indexed, so +1
   }
 
-  // +1 makes it inclusive of both the start and end month.
+  // +1 makes the range inclusive — e.g. Jan–Jan = 1 month, not 0
   const totalMonths =
     (endYear - startYear) * 12 + (endMonth - startMonth) + 1;
 

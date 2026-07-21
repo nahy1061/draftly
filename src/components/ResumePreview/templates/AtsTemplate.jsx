@@ -42,10 +42,7 @@ function AtsTemplate() {
                 </DraggablePreviewSection>
               );
 
-              // Tag Skills specifically so the comma-separator CSS
-              // rule above can target only this section, without
-              // touching Languages/Interests/Projects (which keep
-              // the pipe separator).
+              // Skills get comma separators; all other sections use the default pipe style
               return key === "skills" ? (
                 <div key={key} data-ats-key="skills">
                   {sectionContent}

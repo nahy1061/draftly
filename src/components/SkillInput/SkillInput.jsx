@@ -2,19 +2,21 @@ import { useState } from "react";
 import { useResume } from "../../context/ResumeContext";
 import { generateID } from "../../utils/generateID";
 
+// Reused for skills and interests — tag-style add/remove lists
 function SkillInput({ section, fieldKey, placeholder }) {
   const { resumeData, dispatch } = useResume();
   const [value, setValue] = useState("");
 
   function handleAdd(e) {
-    e.preventDefault(); // stop the form from reloading the page
+    e.preventDefault();
     const trimmed = value.trim();
-    if (!trimmed) return; // ignore empty submits
+    if (!trimmed) return;
 
+    // Case-insensitive dedupe — "react" and "React" are the same skill
     const alreadyExists = resumeData[section].some(
       (item) => item[fieldKey].toLowerCase() === trimmed.toLowerCase()
     );
-    if (alreadyExists) return; // no duplicates
+    if (alreadyExists) return;
 
     dispatch({
       type: "ADD_ITEM",

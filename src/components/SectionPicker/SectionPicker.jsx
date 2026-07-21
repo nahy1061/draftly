@@ -20,8 +20,7 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
   const { resumeData, dispatch } = useResume();
   const { sectionOrder, skippedSections } = resumeData;
 
-  // Sensors = what kinds of input can start a drag. Pointer covers mouse + touch. 
-  // Keyboard sensor makes dragging accessible via Tab-to-focus + arrow keys, not just pointer devices.
+  // Pointer + keyboard sensors for accessible drag reorder
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -33,16 +32,16 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
 
   function toggleSkip(key) {
     const willBecomeSkipped = !skippedSections.includes(key);
+    // Nav away first — can't stay on a section that's about to disappear
     if (willBecomeSkipped && key === activeSection && onActiveSectionSkip) {
       onActiveSectionSkip(key);
     }
     dispatch({ type: "TOGGLE_SECTION_SKIP", payload: key });
   }
 
-  // Called when a drag finishes. `active` = the item that was dragged, `over` = whatever it was dropped on top of.
   function handleDragEnd(event) {
     const { active, over } = event;
-    if (!over || active.id === over.id) return; // dropped on itself, or outside — no change
+    if (!over || active.id === over.id) return;
 
     const oldIndex = sectionOrder.indexOf(active.id);
     const newIndex = sectionOrder.indexOf(over.id);
@@ -56,11 +55,13 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
   }
 
   function handleOverlayClick(e) {
+    // Only close when clicking the backdrop itself, not the card
     if (e.target === e.currentTarget && onClose) {
       onClose();
     }
   }
 
+  // fullscreen = onboarding flow on first visit; modal = opened from the edit column header
   const wrapperClass =
     mode === "fullscreen"
       ? "min-h-screen bg-[#FAFBFD] dark:bg-[#0B0F19] text-slate-900 dark:text-slate-100 p-6 flex flex-col items-center justify-center transition-colors duration-300"

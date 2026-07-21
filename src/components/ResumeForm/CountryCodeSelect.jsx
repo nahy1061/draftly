@@ -1,3 +1,4 @@
+// Pakistan first — most likely audience for this app, rest in rough usage order
 const countryCodes = [
     { code: "+92", label: "🇵🇰 +92" },   // Pakistan
   { code: "+1", label: "🇺🇸 +1" },    // United States

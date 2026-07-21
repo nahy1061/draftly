@@ -1,6 +1,6 @@
 import { useBuilderNav } from "../../../context/BuilderNavContext";
 
-// Wraps any preview section so clicking it jumps the Edit column to that section — and switches the mobile tab to "edit" too, since otherwise on mobile you'd change activeSection but still be staring at the Preview tab.
+// Click preview section → jump to edit column (and switch mobile tab to edit)
 function ClickableSection({ sectionKey, entryId, children }) {
   const { handlePickSection, handlePickEntry, setActiveTab } = useBuilderNav();
 

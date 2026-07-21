@@ -18,6 +18,7 @@ const emptyEducation = {
   totalMarks: "",
 };
 
+// EducationForm handles both add and edit — editingID being set is what switches between them
 function EducationForm() {
   const { resumeData, dispatch } = useResume();
   const [editingID, setEditingID] = useState(null);
@@ -89,7 +90,7 @@ function EducationForm() {
           />
         </div>
 
-        {/* Radio Button */}
+        {/* scoreType drives which score fields are shown and which Yup rules are active */}
         <div className="flex gap-4">
           <label className="flex items-center gap-2 text-sm">
             <input
@@ -116,7 +117,6 @@ function EducationForm() {
           </span>
         </div>
 
-        {/* CGPA / Marks Fields  */}
         {formik.values.scoreType === "cgpa" ? (
           <div className="flex gap-4">
             <FormInput
@@ -149,7 +149,6 @@ function EducationForm() {
           </div>
         )}
 
-        {/* Add/Update Education Button  */}
         <div className="flex gap-2">
           <button
             type="submit"
@@ -169,7 +168,6 @@ function EducationForm() {
         </div>
       </form>
 
-      {/* Entry Preview with Edit/Delete Btn  */}
       <ul className="space-y-3 mt-6">
         {resumeData.education &&
           resumeData.education.map((entry) => (
@@ -184,7 +182,6 @@ function EducationForm() {
                 </p>
               </div>
 
-              {/* edit/delete buttons  */}
               <div className="flex gap-2">
                 <button
                   type="button"

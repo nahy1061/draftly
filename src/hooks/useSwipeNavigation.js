@@ -1,7 +1,7 @@
 import { useRef } from "react";
 
-const SWIPE_THRESHOLD = 60;
-const LOCK_THRESHOLD = 10; // px moved before we decide direction
+const SWIPE_THRESHOLD = 60; // min px horizontal travel to count as a swipe
+const LOCK_THRESHOLD = 10; // px moved before we decide horizontal vs vertical
 
 export function useSwipeNavigation(onSwipeLeft, onSwipeRight) {
   const startRef = useRef(null);
@@ -10,7 +10,7 @@ export function useSwipeNavigation(onSwipeLeft, onSwipeRight) {
   function handleTouchStart(e) {
     const touch = e.touches[0];
     startRef.current = { x: touch.clientX, y: touch.clientY };
-    lockedRef.current = null;
+    lockedRef.current = null; // reset direction lock for each new touch
   }
 
   function handleTouchMove(e) {
@@ -20,10 +20,7 @@ export function useSwipeNavigation(onSwipeLeft, onSwipeRight) {
     const deltaX = touch.clientX - startRef.current.x;
     const deltaY = touch.clientY - startRef.current.y;
 
-    // Decide direction early, based on the first bit of movement —
-    // not at the end. This is what prevents a mostly-vertical scroll
-    // from being misread as a swipe just because it drifted sideways
-    // a little over a long distance.
+    // Lock direction early so vertical scrolls aren't misread as swipes
     if (Math.abs(deltaX) > LOCK_THRESHOLD || Math.abs(deltaY) > LOCK_THRESHOLD) {
       lockedRef.current = Math.abs(deltaX) > Math.abs(deltaY) ? "horizontal" : "vertical";
     }
@@ -36,6 +33,7 @@ export function useSwipeNavigation(onSwipeLeft, onSwipeRight) {
     const touch = e.changedTouches[0];
     const deltaX = touch.clientX - startRef.current.x;
 
+    // Clear state before checking direction — keeps a fast second tap clean
     startRef.current = null;
     lockedRef.current = null;
 

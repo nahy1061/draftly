@@ -9,6 +9,7 @@ function BuilderContent() {
   const { handlePickSection, showPicker, setShowPicker, activeSection, handleActiveSectionSkip } =
     useBuilderNav();
 
+  // First visit: pick which sections to include before showing the editor
   if (!resumeData.hasSeenSectionPicker) {
     return <SectionPicker mode="fullscreen" onSelect={handlePickSection} />;
   }
@@ -31,9 +32,7 @@ function BuilderContent() {
   );
 }
 
-// Wrapping in its own component so BuilderContent can call
-// useBuilderNav() — a component can't use a context it's also
-// the one providing.
+// Split so BuilderContent can call useBuilderNav() inside the provider — can't consume what you provide
 function Builder() {
   return (
     <BuilderNavProvider>

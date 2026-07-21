@@ -6,6 +6,7 @@ import LanguagesPreview from "./sections/LanguagesPreview";
 import ProjectsPreview from "./sections/ProjectsPreview";
 import SkillsPreview from "./sections/SkillsPreview";
 
+// Section key → preview component (personalInfo is rendered separately in each template)
 export const PREVIEW_COMPONENTS = {
   education: EducationPreview,
   experience: ExperiencePreview,

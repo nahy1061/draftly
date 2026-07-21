@@ -1,9 +1,11 @@
 import React from 'react'
 
+// Decorative mock resume card shown on the home hero — purely visual, no real data
 const Card = () => {
   return (
     <div className="flex-1 flex justify-center">
       <div className="relative w-72 sm:w-80 rotate-2 hover:rotate-0 transition-transform duration-500 ease-out">
+        {/* Slight tilt by default, straightens on hover for a subtle interactive feel */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl shadow-xl p-6">
           <span className="font-mono-draft text-[10px] text-indigo-600 dark:text-indigo-400 tracking-wide font-medium">
             // auto-saved 2s ago

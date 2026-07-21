@@ -14,6 +14,7 @@ const emptyCertification = {
   credentialUrl: "",
 };
 
+// CertificationsForm follows the same add/edit pattern as the other section forms
 function CertificationsForm() {
   const { resumeData, dispatch } = useResume();
   const [editingID, setEditingID] = useState(null);

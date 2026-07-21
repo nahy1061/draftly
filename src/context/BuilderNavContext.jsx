@@ -3,24 +3,25 @@ import { useResume } from "./ResumeContext";
 
 const BuilderNavContext = createContext(null);
 
+// Tracks which builder section/tab is active and handles prev/next skipping hidden sections
 export function BuilderNavProvider({ children }) {
   const { resumeData, dispatch } = useResume();
 
-  // useStates
+  // personalInfo lives outside sectionOrder, so prepend it manually
   const navOrder = ["personalInfo", ...resumeData.sectionOrder];
   const [activeSection, setActiveSection] = useState(navOrder[0]);
   const [showPicker, setShowPicker] = useState(false);
   const [activeTab, setActiveTab] = useState("edit");
   const [pendingEntryId, setPendingEntryId] = useState(null);
 
-  // Variables
   const currentIndex = navOrder.indexOf(activeSection);
   const nextIndex = getNextIndex(currentIndex);
   const prevIndex = getPrevIndex(currentIndex);
+  // -1 means "no valid neighbor in that direction"
   const isFirst = prevIndex === -1;
   const isLast = nextIndex === -1;
 
-  //Functions
+  // Walk past skipped sections — returns -1 at the end of navOrder
   function getNextIndex(fromIndex) {
     let idx = fromIndex + 1;
     while (
@@ -50,19 +51,21 @@ export function BuilderNavProvider({ children }) {
 
   function handlePickSection(key) {
     setActiveSection(key);
+    // First time a user jumps via the preview or picker counts as "seen"
     if (!resumeData.hasSeenSectionPicker) {
       dispatch({ type: "MARK_PICKER_SEEN" });
     }
   }
 
   function handleActiveSectionSkip(key) {
+    // After skipping, land on the nearest non-skipped neighbor
     const next = getNextIndex(navOrder.indexOf(key));
     const prev = getPrevIndex(navOrder.indexOf(key));
     if (next !== -1) setActiveSection(navOrder[next]);
     else if (prev !== -1) setActiveSection(navOrder[prev]);
   }
 
-  // Jump to a section AND mark a specific entry to auto-open for editing
+  // Preview click → jump to section and auto-open that entry (see useAutoEditEntry)
   function handlePickEntry(sectionKey, entryId) {
     handlePickSection(sectionKey);
     setPendingEntryId(entryId);
@@ -72,7 +75,6 @@ export function BuilderNavProvider({ children }) {
     setPendingEntryId(null);
   }
 
-  //Object
   const value = {
     navOrder,
     activeSection,

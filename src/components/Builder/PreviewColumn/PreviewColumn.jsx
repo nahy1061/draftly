@@ -5,6 +5,7 @@ import PreviewColumnHeader from "./PreviewColumnHeader";
 
 function PreviewColumn() {
   const { activeTab } = useBuilderNav();
+  // printRef is passed down so PrintButton can target the unscaled resume node
   const printRef = useRef(null);
   return (
     <div

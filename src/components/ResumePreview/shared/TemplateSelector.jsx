@@ -1,5 +1,6 @@
 import { useResume } from "../../../context/ResumeContext";
 
+// `available` flag exists for future templates — disabled + "(soon)" label when false
 const TEMPLATES = [
   { id: "professional", label: "Professional", available: true },
   { id: "modern", label: "Modern", available: true },

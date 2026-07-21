@@ -73,12 +73,13 @@ function ExperienceForm() {
     formik.setValues({
       ...formik.values,
       current: checked,
+      // Wipe endDate when "currently working" is checked so it doesn't fail validation
       endDate: checked ? "" : formik.values.endDate,
     });
 
     if (checked) {
-      //  setFieldTouched(field, isTouched, shouldValidate)
-      formik.setFieldTouched("endDate", false, false); // 3rd arg: don't re-validate on this call
+      // Also clear touched so the now-hidden endDate field doesn't show an error
+      formik.setFieldTouched("endDate", false, false);
     }
   }
 
@@ -149,7 +150,6 @@ function ExperienceForm() {
             )}
         </div>
 
-        {/* Add/Update Education Button  */}
         <div className="flex gap-2">
           <button
             type="submit"
@@ -157,7 +157,6 @@ function ExperienceForm() {
           >
             {editingID ? "Update" : "Add"} Experience
           </button>
-          {/* Show cancel btn only when updating form  */}
           {editingID && (
             <button
               type="button"
@@ -170,7 +169,6 @@ function ExperienceForm() {
         </div>
       </form>
 
-      {/* Entry Preview with Edit/Delete Btn  */}
       <ul className="space-y-3 mt-6">
         {resumeData.experience &&
           resumeData.experience.map((entry) => (
@@ -193,6 +191,7 @@ function ExperienceForm() {
                   {" · "}
                   {calculateDuration(
                     entry.startDate,
+                    // Empty string tells calculateDuration to use today's date
                     entry.current ? "" : entry.endDate,
                   )}
                 </p>

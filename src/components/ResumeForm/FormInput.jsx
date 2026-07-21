@@ -1,3 +1,4 @@
+// Shared text/select/checkbox field wired to Formik
 function FormInput({ formik, name, label, type = "text", options }) {
   const isCheckbox = type === "checkbox";
   const isSelect = type === "select";
@@ -28,6 +29,7 @@ function FormInput({ formik, name, label, type = "text", options }) {
         <input
           type={type}
           name={name}
+          // checkboxes bind to `checked`, everything else to `value`
           {...(isCheckbox
             ? { checked: formik.values[name] }
             : { value: formik.values[name] })}

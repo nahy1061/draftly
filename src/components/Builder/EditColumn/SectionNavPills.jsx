@@ -11,6 +11,7 @@ function SectionNavPills() {
       {navOrder
         .filter(
           (key) =>
+            // personalInfo is always shown; other sections respect skip list
             key === "personalInfo" || !resumeData.skippedSections.includes(key),
         )
         .map((key) => (

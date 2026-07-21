@@ -3,13 +3,9 @@ import { CSS } from "@dnd-kit/utilities";
 import { SECTION_LABELS } from "../../utils/constants";
 
 function SectionPickerRow({ sectionKey, skipped, done, onSelect, onToggleSkip }) {
-  // useSortable needs a unique `id` — we use the section key itself, since it's already unique per row.
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: sectionKey });
 
-  // These two lines translate dnd-kit's internal drag state into real CSS
-  // `transform` moves the row visually while dragging 
-  // `transition` smooths it back into place once you drop it.
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,

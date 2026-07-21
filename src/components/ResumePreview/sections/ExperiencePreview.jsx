@@ -2,6 +2,7 @@ import { calculateDuration } from "../../../utils/calculateDuration";
 import { formatMonthYear } from "../../../utils/formatDate";
 import ClickableSection from "../shared/ClickableSection";
 
+// ExperiencePreview passes empty string for current jobs so calculateDuration uses today
 const ExperiencePreview = ({ experience }) => {
   return (
     <div>

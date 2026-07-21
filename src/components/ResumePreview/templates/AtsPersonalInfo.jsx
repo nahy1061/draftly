@@ -8,6 +8,7 @@ function ContactLine({ items }) {
       {items.map((item, i) => (
         <Fragment key={i}>
           {item}
+          {/* \u00A0 = non-breaking space — keeps the pipe separator from wrapping mid-glyph */}
           {i < items.length - 1 && "\u00A0\u00A0|\u00A0\u00A0"}
         </Fragment>
       ))}
@@ -15,7 +16,9 @@ function ContactLine({ items }) {
   );
 }
 
+// Plain-text layout for ATS parsers — no icons, pipes between contact items
 function AtsPersonalInfo({ personalInfo }) {
+  // Split contact into two rows so the line doesn't get too wide
   const contactLine1 = [
     personalInfo.phone && `+${personalInfo.countryCode} ${personalInfo.phone}`,
     personalInfo.email,

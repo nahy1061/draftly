@@ -6,9 +6,7 @@ import PersonalInfoPreview from "../sections/PersonalInfoPreview";
 import { PREVIEW_COMPONENTS } from "../previewComponentsMap";
 import { LIST_SECTIONS } from "../../../utils/sectionMeta";
 
-// Fixed by section TYPE, not draggable placement — a section either
-// belongs in the sidebar or the main column based on what it is.
-// Reordering still works within each group independently.
+// Skills/languages/interests always go in the sidebar; the rest fill the main column
 const SIDEBAR_SECTIONS = ["skills", "languages", "interests"];
 
 function renderSection(key, resumeData, taggedForSidebar = false) {
@@ -23,9 +21,7 @@ function renderSection(key, resumeData, taggedForSidebar = false) {
     </DraggablePreviewSection>
   );
 
-  // Tag sidebar sections with their key so the CSS below can give
-  // Skills/Languages/Interests three distinct looks even though they
-  // all come from the same shared, pill-styled preview components.
+  // Sidebar items get wrapped in a data-modern-key div so CSS can target them specifically
   return taggedForSidebar ? (
     <div key={key} data-modern-key={key}>
       {section}
@@ -40,11 +36,7 @@ function ModernTemplate() {
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden w-2xl print:w-auto print:shadow-none print:rounded-none text-[#1C2541]">
-      {/* ── Header ─────────────────────────────────────────────────────────
-          Always rendered at full desktop size — ScaledPreviewWrapper
-          handles shrinking this for mobile, not breakpoints.
-            • h1  → larger, bolder name
-            • img.rounded-full → gold ring on profile photo           */}
+      {/* Header styling — ScaledPreviewWrapper handles mobile shrink, not breakpoints */}
       <div
         className="
           px-10 pt-10 pb-7 print:px-6 print:pt-5 print:pb-4
@@ -58,15 +50,11 @@ function ModernTemplate() {
         </ClickableSection>
       </div>
 
-      {/* Gradient accent divider — richer than the old static yellow border */}
+      {/* Gradient accent divider */}
       <div className="h-0.75 bg-linear-to-r from-[#F4B942] via-[#3C6E71]/60 to-transparent" />
 
       <div className="flex flex-row">
-        {/* ── Sidebar ──────────────────────────────────────────────────────
-            Always a true side column — never stacks, never reflows.
-            Section headings (h2) get a 2px teal left accent bar.
-            Skill pills get a visible border on top of their bg tint.
-            Languages → bulleted list, Interests → dot-separated inline. */}
+        {/* Sidebar — Tailwind descendant selectors restyle pills/lists per data-modern-key */}
         <div
           className="
             w-1/3 bg-[#E2D8C3] p-8 print:p-4
@@ -110,7 +98,7 @@ function ModernTemplate() {
           </SortableSectionProvider>
         </div>
 
-        {/* ── Main column — everything else, own independent drag group */}
+        {/* Main column — separate drag group from sidebar */}
         <div className="w-2/3 p-10 print:p-4">
           <SortableSectionProvider
             allowedKeys={resumeData.sectionOrder.filter(

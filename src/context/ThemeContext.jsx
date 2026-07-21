@@ -2,8 +2,10 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const ThemeContext = createContext(null);
 
+// Syncs dark class on <html> and persists preference to localStorage
 export function ThemeProvider({ children }) {
   const [isDark, setIsDark] = useState(() => {
+    // Lazy init from localStorage — runs once before first render
     const savedTheme = localStorage.getItem("theme");
     return savedTheme === "dark";
   });

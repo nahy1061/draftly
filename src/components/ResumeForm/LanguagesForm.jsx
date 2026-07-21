@@ -9,7 +9,7 @@ import { useAutoEditEntry } from "../../hooks/useAutoEditEntry";
 
 const emptyLanguage = {
   name: "",
-  proficiency: PROFICIENCY_LEVELS[0], // defaults to "Beginner"
+  proficiency: PROFICIENCY_LEVELS[0], // "Beginner" — first item is the safest default
 };
 
 function LanguagesForm() {

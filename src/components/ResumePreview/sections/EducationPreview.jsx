@@ -24,6 +24,7 @@ const EducationPreview = ({ education }) => {
                     </p>
                   </div>
                   <p className="text-sm text-[#3C6E71]">{entry.institute}</p>
+                  {/* Only render score if both parts are present — avoids "3.5/" or "/4" */}
                   {entry.scoreType === "cgpa" &&
                     entry.obtainedCgpa &&
                     entry.totalCgpa && (

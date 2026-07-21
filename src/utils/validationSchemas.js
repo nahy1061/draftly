@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 import { PROFICIENCY_LEVELS } from "./constants";
 
+// No leading 0 — country code is stored separately, so phone starts at digit 1
 const phoneRegExp = /^[1-9]\d{8,10}$/;
 const currentYear = new Date().getFullYear();
 
@@ -46,6 +47,7 @@ export const educationSchema = Yup.object({
       then: (schema) =>
         schema
           .min(0, "Cannot be negative")
+          // Cross-field check: obtained can't exceed the total
           .test(
             "not-more-than-total-cgpa",
             "Obtained CGPA cannot exceed total CGPA",
@@ -102,13 +104,14 @@ export const experienceSchema = Yup.object({
 
   endDate: Yup.string().when("current", {
     is: true,
+    // Field is hidden when "currently working" — skip validation entirely
     then: (schema) => schema.notRequired(),
     otherwise: (schema) =>
       schema
         .required("End date is required")
         .test(
-          "end-after-start",                        //test name
-          "End date cannot be before start date",    // error msg
+          "end-after-start",
+          "End date cannot be before start date",
           function (value) {
                 return !value || !this.parent.startDate || value >= this.parent.startDate;
           }

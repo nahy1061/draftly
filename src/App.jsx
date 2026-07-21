@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Builder from "./pages/Builder";
 import { ThemeProvider } from "./context/ThemeContext";
 
+// ResumeProvider wraps all routes so builder state survives navigation to/from home
 const App = () => {
   return (
     <ThemeProvider>

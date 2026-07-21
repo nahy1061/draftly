@@ -11,8 +11,7 @@ function ProfessionalTemplate() {
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden w-2xl print:w-auto print:shadow-none print:rounded-none text-[#1C2541]">
-      {/* Masthead — solid teal band gives Professional its own identity
-         at a glance, instead of just being "Minimal with bigger headings" */}
+      {/* Teal masthead — Professional's visual anchor vs other templates */}
       <div
         className="
           bg-[#3C6E71] px-8 sm:px-10 pt-8 sm:pt-10 pb-6 sm:pb-7 print:px-6 print:pt-5 print:pb-4
@@ -30,9 +29,7 @@ function ProfessionalTemplate() {
         </ClickableSection>
       </div>
 
-      {/* Body — section headings get a full underline rule instead of
-         just color+tracking, so they anchor the content more firmly
-         than Minimal's deliberately-faint ones */}
+      {/* Body — gold underline on section headings via Tailwind descendant selectors */}
       <div
         className="
         px-8 sm:px-10 pb-8 sm:pb-10 pt-6 sm:pt-7 print:px-6 print:pb-6 print:pt-4
@@ -44,6 +41,7 @@ function ProfessionalTemplate() {
           {(visibleSections) =>
             visibleSections.map((key) => {
               const Component = PREVIEW_COMPONENTS[key];
+              // LIST_SECTIONS entries are click-to-edit at the item level, not section level
               return (
                 <DraggablePreviewSection
                   key={key}

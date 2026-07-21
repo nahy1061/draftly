@@ -1,10 +1,12 @@
 import { useReactToPrint } from "react-to-print";
 import { useResume } from "../../../context/ResumeContext";
 
+// Opens browser print dialog — filename uses full name when available
 function PrintButton({ printRef }) {
   const { resumeData } = useResume();
 
   const fullName = resumeData.personalInfo?.fullName?.trim();
+  // Spaces → underscores so the saved PDF filename is clean
   const documentTitle = fullName
     ? `${fullName.replace(/\s+/g, "_")}_Resume`
     : "Resume";

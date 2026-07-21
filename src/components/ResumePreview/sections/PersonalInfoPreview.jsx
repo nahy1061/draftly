@@ -2,6 +2,7 @@ import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 import { FaLinkedin, FaGithub, FaGlobe } from "react-icons/fa";
 
 const PersonalInfoPreview = ({ personalInfo }) => {
+  // Build arrays of non-empty contact/link items so we don't render empty rows
   const contactItems = [
     personalInfo.email && { icon: MdEmail, text: personalInfo.email },
     personalInfo.phone && {

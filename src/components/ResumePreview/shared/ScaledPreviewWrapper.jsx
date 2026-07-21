@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+// Shrinks the resume preview to fit the preview column without changing its layout size.
+// CSS transform:scale doesn't affect layout, so we track a wrapper box at the scaled dimensions.
 function ScaledPreviewWrapper({ children, printRef }) {
   const outerRef = useRef(null);
   const contentRef = useRef(null);
@@ -15,6 +17,7 @@ function ScaledPreviewWrapper({ children, printRef }) {
       const naturalHeight = contentRef.current.offsetHeight;
       if (!naturalWidth) return;
 
+      // Cap at 1 — only shrink to fit, never upscale (keeps text crisp)
       const nextScale = Math.min(1, availableWidth / naturalWidth);
       setScale(nextScale);
       setScaledWidth(naturalWidth * nextScale);
@@ -23,6 +26,7 @@ function ScaledPreviewWrapper({ children, printRef }) {
 
     measureAndScale();
 
+    // Re-measure when the column or resume content size changes
     const resizeObserver = new ResizeObserver(measureAndScale);
     if (outerRef.current) resizeObserver.observe(outerRef.current);
     if (contentRef.current) resizeObserver.observe(contentRef.current);
@@ -39,6 +43,7 @@ function ScaledPreviewWrapper({ children, printRef }) {
         <div
           ref={(node) => {
             contentRef.current = node;
+            // PrintButton needs the unscaled node so @media print gets full-size output
             if (printRef) printRef.current = node;
           }}
           style={{ transform: `scale(${scale})`, transformOrigin: "top left" }}

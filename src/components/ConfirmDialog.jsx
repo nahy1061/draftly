@@ -4,13 +4,14 @@ function ConfirmDialog({
   message,
   confirmLabel = "Confirm",
   cancelLabel = "Cancel",
-  destructive = false,
+  destructive = false, // turns the confirm button red
   onConfirm,
   onCancel,
 }) {
   if (!open) return null;
 
   function handleOverlayClick(e) {
+    // Only close when clicking the backdrop, not the dialog card itself
     if (e.target === e.currentTarget) {
       onCancel();
     }

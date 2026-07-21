@@ -4,6 +4,7 @@ function ProgressIndicator() {
   const { resumeData } = useResume();
   const { sectionOrder, skippedSections, personalInfo } = resumeData;
 
+  // Count personalInfo as done if fullName is filled (it has no array to check)
   const personalInfoDone = Boolean(personalInfo.fullName);
   const eligibleSections = sectionOrder.filter((key) => !skippedSections.includes(key));
 
@@ -13,8 +14,8 @@ function ProgressIndicator() {
 
   const totalCount = 1 + eligibleSections.length;
 
-  // Build an array of totalCount slots, mark the first `doneCount` of
-  // them as filled — regardless of WHICH specific sections are done.
+  // Build an array of booleans — first doneCount slots are true, rest false
+  // Positional so segment i is "filled" regardless of which section is done
   const segments = Array.from({ length: totalCount }, (_, i) => i < doneCount);
 
   return (

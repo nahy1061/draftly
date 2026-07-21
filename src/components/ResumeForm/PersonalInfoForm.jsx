@@ -11,22 +11,24 @@ function PersonalInfoForm() {
   const formik = useFormik({
     initialValues: resumeData.personalInfo,
     validationSchema: personalInfoSchema,
-    onSubmit: () => {}, // unused — we sync via useEffect instead, not a submit button
+    onSubmit: () => {}, // sync via useEffect — no submit button on this form
   });
 
+  // Push every keystroke into context (auto-save picks it up)
   useEffect(() => {
     dispatch({ type: "UPDATE_PERSONAL_INFO", payload: formik.values });
   }, [formik.values]);
 
   function handlePhotoUpload(e) {
-    const file = e.target.files[0]; // the selected File object, or undefined if cancelled
+    const file = e.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = () => {
       formik.setFieldValue("profilePhoto", reader.result);
     };
-    reader.readAsDataURL(file); // kicks off the async read; onload fires when done
+    // Store as base64 data URL so it survives localStorage
+    reader.readAsDataURL(file);
   }
 
   return (
@@ -38,7 +40,6 @@ function PersonalInfoForm() {
       <FormInput formik={formik} name="email" label="Email" type="email" />
       <FormInput formik={formik} name="jobTitle" label="Job Title" />
 
-      {/* Phone */}
       <div>
         <label className="block text-sm font-medium mb-1">Phone</label>
         <div className="flex gap-2">
@@ -64,7 +65,6 @@ function PersonalInfoForm() {
       <FormInput formik={formik} name="github" label="GitHub" />
       <FormInput formik={formik} name="portfolio" label="Portfolio" />
 
-      {/* Summary */}
       <div>
         <div className="flex gap-2">
         <label className="block text-sm font-medium mb-1">Summary</label>
@@ -86,13 +86,13 @@ function PersonalInfoForm() {
           ) : (
             <span />
           )}
+          {/* Live character counter — max is enforced by Yup schema (500) */}
           <span className="text-slate-400 dark:text-slate-500">
             {formik.values.summary.length}/500
           </span>
         </div>
       </div>
 
-      {/* Profile Photo */}
       <div>
         <label className="block text-sm font-medium mb-1">Profile Photo</label>
         <input type="file" accept="image/*" onChange={handlePhotoUpload} />

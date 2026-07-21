@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-// Write/Save data in local storage
+// Persists value to localStorage whenever it changes
 export function useLocalStorage(key, value) {
   useEffect(() => {
     try {
@@ -11,7 +11,7 @@ export function useLocalStorage(key, value) {
   }, [key, value]);
 }
 
-// Read data from local storage
+// One-time read — used for reducer init before first render
 export function loadFromLocalStorage(key) {
   try {
     const stored = localStorage.getItem(key);

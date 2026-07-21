@@ -12,6 +12,7 @@ import EditColumnHeader from "./EditColumnHeader";
 import { useBuilderNav } from "../../../context/BuilderNavContext";
 import { useSwipeNavigation } from "../../../hooks/useSwipeNavigation";
 
+// Maps nav section keys to their form component — keeps EditColumn a thin switcher
 const SECTION_COMPONENTS = {
   personalInfo: PersonalInfoForm,
   education: EducationForm,
@@ -27,6 +28,7 @@ function EditColumn() {
   const { activeSection, activeTab, handleNext, handlePrev } = useBuilderNav();
   const ActiveFormComponent = SECTION_COMPONENTS[activeSection];
 
+  // Swipe left/right to move between sections on mobile
   const swipeHandlers = useSwipeNavigation(handleNext, handlePrev);
 
   return (

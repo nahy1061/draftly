@@ -2,6 +2,7 @@ import EditColumn from "./EditColumn/EditColumn";
 import PreviewColumn from "./PreviewColumn/PreviewColumn";
 import { useBuilderNav } from "../../context/BuilderNavContext";
 
+// Mobile-only tab switcher — desktop shows edit + preview side by side
 function BuilderMain() {
   const { activeTab, setActiveTab } = useBuilderNav();
 

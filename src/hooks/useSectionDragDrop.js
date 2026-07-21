@@ -2,14 +2,12 @@ import { useSensor, useSensors, PointerSensor, KeyboardSensor } from "@dnd-kit/c
 import { sortableKeyboardCoordinates, arrayMove } from "@dnd-kit/sortable";
 import { useResume } from "../context/ResumeContext";
 
-// `allowedKeys` (optional) scopes this drag group to only a subset of
-// sections — e.g. Modern template's sidebar vs main column, each
-// getting their own independent drag zone. Without it, behaves exactly
-// as before (all visible sections in one group).
+// Optional allowedKeys scopes drag to a subset (e.g. Modern template sidebar vs main column)
 export function useSectionDragDrop(allowedKeys = null) {
   const { resumeData, dispatch } = useResume();
 
   const sensors = useSensors(
+    // delay + tolerance so a tap on mobile doesn't accidentally start a drag
     useSensor(PointerSensor, { activationConstraint: { delay: 200, tolerance: 8 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
