@@ -49,7 +49,7 @@ function MonthYearField({ value, onChange, onBlur, disabled, hasError }) {
         <button
           type="button"
           onClick={decreaseYear}
-          className="p-1 rounded-sm hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400"
+          className="p-1 rounded-sm hover:bg-[#EDE8DF] dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400"
           aria-label="Previous Year"
         >
           <FaChevronLeft size={12} />
@@ -58,7 +58,7 @@ function MonthYearField({ value, onChange, onBlur, disabled, hasError }) {
         <button
           type="button"
           onClick={() => setYearMenuOpen((open) => !open)}
-          className="text-sm font-semibold text-slate-800 dark:text-slate-100 px-2 py-0.5 rounded-sm hover:bg-slate-100 dark:hover:bg-slate-800"
+          className="text-sm font-semibold text-slate-800 dark:text-slate-100 px-2 py-0.5 rounded-sm hover:bg-[#EDE8DF] dark:hover:bg-slate-800"
         >
           {date.getFullYear()}
         </button>
@@ -93,7 +93,7 @@ function MonthYearField({ value, onChange, onBlur, disabled, hasError }) {
         <button
           type="button"
           onClick={increaseYear}
-          className="p-1 rounded-sm hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400"
+          className="p-1 rounded-sm hover:bg-[#EDE8DF] dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400"
           aria-label="Next Year"
         >
           <FaChevronRight size={12} />

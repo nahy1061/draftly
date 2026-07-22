@@ -38,7 +38,7 @@ function ScaledPreviewWrapper({ children, printRef }) {
     <div ref={outerRef} className="w-full print:overflow-visible">
       <div
         style={{ width: scaledWidth || undefined, height: scaledHeight || undefined }}
-        className="mx-auto overflow-hidden print:w-auto! print:h-auto! print:mx-0! print:overflow-visible!"
+        className="mx-auto overflow-hidden print:w-auto! print:h-auto! print:mx-0! print:overflow-visible! shadow-md rounded-lg print:shadow-none"
       >
         <div
           ref={(node) => {
