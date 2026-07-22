@@ -7,6 +7,7 @@ import { generateID } from "../../utils/generateID";
 import { formatMonthYear } from "../../utils/formatDate";
 import { calculateDuration } from "../../utils/calculateDuration";
 import { useAutoEditEntry } from "../../hooks/useAutoEditEntry";
+import MonthYearField from "./MonthYearField";
 
 const emptyExperience = {
   company: "",
@@ -100,16 +101,14 @@ function ExperienceForm() {
             label="Start Date"
             type="month"
           />
-          <div className="flex-1">
+       <div className="flex-1">
             <label className="block text-sm font-medium mb-1">End Date</label>
-            <input
-              type="month"
-              name="endDate"
+            <MonthYearField
               value={formik.values.endDate}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              onChange={(val) => formik.setFieldValue("endDate", val)}
+              onBlur={() => formik.setFieldTouched("endDate", true)}
               disabled={formik.values.current}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-hidden transition-all disabled:opacity-40"
+              hasError={formik.touched.endDate && formik.errors.endDate}
             />
             {formik.touched.endDate && formik.errors.endDate && (
               <p className="text-red-500 text-sm mt-1">

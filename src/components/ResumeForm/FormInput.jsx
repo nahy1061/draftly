@@ -1,13 +1,23 @@
-// Shared text/select/checkbox field wired to Formik
+import MonthYearField from "./MonthYearField";
+
 function FormInput({ formik, name, label, type = "text", options }) {
+// Shared text/select/checkbox field wired to Formik
   const isCheckbox = type === "checkbox";
   const isSelect = type === "select";
+  const isMonth = type === "month";
 
   return (
     <div>
       <label className="block text-sm font-medium mb-1">{label}</label>
 
-      {isSelect ? (
+     {isMonth ? (
+        <MonthYearField
+          value={formik.values[name]}
+          onChange={(val) => formik.setFieldValue(name, val)}
+          onBlur={() => formik.setFieldTouched(name, true)}
+          hasError={formik.touched[name] && formik.errors[name]}
+        />
+      ) : isSelect ? (
         <select
           name={name}
           value={formik.values[name]}
@@ -42,7 +52,6 @@ function FormInput({ formik, name, label, type = "text", options }) {
           }
         />
       )}
-
       {formik.touched[name] && formik.errors[name] && (
         <p className="text-red-500 text-sm mt-1">{formik.errors[name]}</p>
       )}
