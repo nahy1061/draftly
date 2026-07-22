@@ -1,6 +1,7 @@
 import { useResume } from "../../context/ResumeContext";
 import CloseButton from "../CloseButton";
 import SectionPickerRow from "./SectionPickerRow";
+import penLogo from "../../assets/logo/pen-logo.png";
 import {
   DndContext,
   closestCenter,
@@ -64,18 +65,39 @@ function SectionPicker({ onSelect, onClose, mode = "modal", activeSection, onAct
   // fullscreen = onboarding flow on first visit; modal = opened from the edit column header
   const wrapperClass =
     mode === "fullscreen"
-      ? "min-h-screen bg-[#FAFBFD] dark:bg-[#0B0F19] text-slate-900 dark:text-slate-100 p-6 flex flex-col items-center justify-center transition-colors duration-300"
+      ? "relative min-h-screen bg-[#FAFBFD] dark:bg-[#0B0F19] bg-[radial-gradient(at_top_right,rgba(99,102,241,0.08),transparent_50%),radial-gradient(at_bottom_left,rgba(139,92,246,0.05),transparent_50%)] dark:bg-[radial-gradient(at_top_right,rgba(99,102,241,0.15),transparent_40%),radial-gradient(at_bottom_left,rgba(139,92,246,0.10),transparent_40%)] text-slate-900 dark:text-slate-100 p-6 flex flex-col items-center justify-center transition-colors duration-300 overflow-hidden"
       : "fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in";
 
   const cardClass =
     mode === "fullscreen"
-      ? "w-full max-w-lg"
+      ? "relative z-10 w-full max-w-lg bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/50 rounded-2xl p-8 shadow-xl shadow-slate-200/50 dark:shadow-none animate-fade-in"
       : "relative w-full max-w-lg bg-white dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 max-h-[80vh] overflow-y-auto themed-scrollbar shadow-2xl";
 
   return (
     <div className={wrapperClass} onClick={mode === "modal" ? handleOverlayClick : undefined}>
+
+      {/* Decorative background blobs — fullscreen only, pointer-events-none so they don't interfere */}
+      {mode === "fullscreen" && (
+        <>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-size-[24px_24px] pointer-events-none" />
+          <div className="absolute top-[-10%] right-[-5%] w-72 h-72 bg-indigo-400/10 dark:bg-indigo-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+          <div className="absolute bottom-[-5%] left-[-5%] w-80 h-80 bg-violet-400/10 dark:bg-violet-500/10 rounded-full blur-3xl pointer-events-none animate-pulse [animation-delay:1.5s]" />
+          <div className="absolute top-[40%] left-[10%] w-48 h-48 bg-indigo-300/8 dark:bg-indigo-400/8 rounded-full blur-2xl pointer-events-none" />
+        </>
+      )}
+
       <div className={cardClass} onClick={(e) => e.stopPropagation()}>
         {mode === "modal" && <CloseButton onClick={onClose} />}
+
+        {/* Logo + brand mark — only shown on the onboarding fullscreen */}
+        {mode === "fullscreen" && (
+          <div className="flex items-center gap-2.5 mb-6">
+            <img src={penLogo} alt="Draftly" className="h-7 w-7 object-contain dark:invert" />
+            <span className="font-display text-lg font-bold tracking-tight bg-linear-to-r from-slate-900 via-indigo-950 to-indigo-900 dark:from-white dark:via-slate-100 dark:to-slate-300 bg-clip-text text-transparent">
+              Draftly
+            </span>
+          </div>
+        )}
 
         <h2 className="font-display text-2xl font-bold mb-1">
           {mode === "fullscreen" ? "Let's build your resume" : "Jump to a section"}
