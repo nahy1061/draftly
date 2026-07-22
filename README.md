@@ -127,39 +127,44 @@ npm run preview
 
 ## Project Structure
 
+
+## Project Structure
+
+```text
 src/
 ├── components/
-│ ├── Builder/ # Header, main layout, edit + preview columns
-│ ├── ResumeForm/ # Per-section form components (education, experience, etc.)
-│ ├── ResumePreview/
-│ │ ├── sections/ # Per-section preview renderers
-│ │ ├── shared/ # Drag, scale, click-to-edit wrappers
-│ │ └── templates/ # Professional, Modern, Minimal, ATS templates
-│ ├── SectionPicker/ # Reorder / skip sections modal
-│ ├── SkillInput/ # Tag-style input for skills and interests
-│ ├── Toast.jsx / ConfirmDialog.jsx / ErrorBoundary.jsx # Shared UI feedback + crash handling
-│ └── ThemeToggle.jsx
+│   ├── Builder/          # Header, main layout, edit + preview columns
+│   ├── ResumeForm/       # Per-section form components (education, experience, etc.)
+│   ├── ResumePreview/
+│   │   ├── sections/     # Per-section preview renderers
+│   │   ├── shared/       # Drag, scale, click-to-edit wrappers
+│   │   └── templates/    # Professional, Modern, Minimal, ATS templates
+│   ├── SectionPicker/    # Reorder / skip sections modal
+│   ├── SkillInput/       # Tag-style input for skills and interests
+│   ├── Toast.jsx / ConfirmDialog.jsx / ErrorBoundary.jsx  # Shared UI feedback + crash handling
+│   └── ThemeToggle.jsx
 ├── context/
-│ ├── ResumeContext.jsx # Global resume state (useReducer + localStorage)
-│ ├── BuilderNavContext.jsx # Active section, tab, and nav logic
-│ ├── ThemeContext.jsx # Dark/light mode
-│ └── ToastContext.jsx # Global toast dispatch
+│   ├── ResumeContext.jsx      # Global resume state (useReducer + localStorage)
+│   ├── BuilderNavContext.jsx  # Active section, tab, and nav logic
+│   ├── ThemeContext.jsx       # Dark/light mode
+│   └── ToastContext.jsx       # Global toast dispatch
 ├── hooks/
-│ ├── useAutoEditEntry.js # Opens an entry for edit when clicked in preview
-│ ├── useLocalStorage.js # Auto-persists state to localStorage
-│ ├── useSectionDragDrop.js # dnd-kit sensors and drag end handler
-│ └── useSwipeNavigation.js # Touch swipe → section navigation
+│   ├── useAutoEditEntry.js    # Opens an entry for edit when clicked in preview
+│   ├── useLocalStorage.js     # Auto-persists state to localStorage
+│   ├── useSectionDragDrop.js  # dnd-kit sensors and drag end handler
+│   └── useSwipeNavigation.js  # Touch swipe → section navigation
 ├── pages/
-│ ├── Home.jsx # Landing page
-│ ├── Builder.jsx # Main builder page
-│ └── NotFound.jsx # 404 page
+│   ├── Home.jsx          # Landing page
+│   ├── Builder.jsx       # Main builder page
+│   └── NotFound.jsx      # 404 page
 └── utils/
-├── calculateDuration.js # Human-readable duration from date range
-├── constants.js # Shared labels and proficiency levels
-├── formatDate.js # "YYYY-MM" → "Jan 2024"
-├── generateID.js # crypto.randomUUID wrapper
-├── sectionMeta.js # List of sections that hold multiple entries
-└── validationSchemas.js # Yup schemas for all forms
+    ├── calculateDuration.js   # Human-readable duration from date range
+    ├── constants.js           # Shared labels and proficiency levels
+    ├── formatDate.js          # "YYYY-MM" → "Jan 2024"
+    ├── generateID.js          # crypto.randomUUID wrapper
+    ├── sectionMeta.js         # List of sections that hold multiple entries
+    └── validationSchemas.js   # Yup schemas for all forms
+```
 
 ## Data & Privacy
 
