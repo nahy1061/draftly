@@ -23,9 +23,19 @@ function PersonalInfoForm() {
     const file = e.target.files[0];
     if (!file) return;
 
+    // 2MB cap — larger images bloat localStorage and can hit the 5MB quota
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Photo must be under 2MB. Try compressing it first.");
+      e.target.value = "";
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = () => {
       formik.setFieldValue("profilePhoto", reader.result);
+    };
+    reader.onerror = () => {
+      alert("Failed to read the image file. Please try a different one.");
     };
     // Store as base64 data URL so it survives localStorage
     reader.readAsDataURL(file);

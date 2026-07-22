@@ -102,8 +102,23 @@ function resumeReducer(state, action) {
 
 // Spread saved over defaults so missing new fields always get a value
 function getInitialState() {
-  const saved = loadFromLocalStorage(STORAGE_KEY);
-  return saved ? { ...initialResumeData, ...saved } : initialResumeData;
+  try {
+    const saved = loadFromLocalStorage(STORAGE_KEY);
+    if (!saved) return initialResumeData;
+    
+    // Basic structure validation — if personalInfo is missing, data is corrupted
+    if (!saved.personalInfo || typeof saved.personalInfo !== 'object') {
+      console.warn('Corrupted resume data detected, resetting to defaults');
+      localStorage.removeItem(STORAGE_KEY);
+      return initialResumeData;
+    }
+    
+    return { ...initialResumeData, ...saved };
+  } catch (error) {
+    console.error('Failed to load resume data, resetting:', error);
+    localStorage.removeItem(STORAGE_KEY);
+    return initialResumeData;
+  }
 }
 
 const ResumeContext = createContext(null);

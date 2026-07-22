@@ -1,12 +1,21 @@
 import { useEffect } from "react";
+import { useToast } from "../context/ToastContext";
 
 // Persists value to localStorage whenever it changes
 export function useLocalStorage(key, value) {
+  const { showToast } = useToast();
+
   useEffect(() => {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (err) {
       console.error("Failed to save to localStorage:", err);
+      // QuotaExceededError is the most likely cause — large profile photos hit the 5MB cap
+      if (err.name === "QuotaExceededError" || err.code === 22) {
+        showToast("Storage limit reached. Try removing your profile photo to free up space.");
+      } else {
+        showToast("Failed to save your resume data. Changes may not persist.");
+      }
     }
   }, [key, value]);
 }
