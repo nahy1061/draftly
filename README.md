@@ -127,9 +127,6 @@ npm run preview
 
 ## Project Structure
 
-
-## Project Structure
-
 ```text
 src/
 ├── components/
